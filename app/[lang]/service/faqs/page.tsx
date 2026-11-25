@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
     import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
     import React from "react";
     import Pen2 from "@/public/images/service-faqs.webp";
@@ -12,7 +13,7 @@
 import { getDictionary } from "@/lib/get-dictionary";
 
     interface NewsPageProps {
-    params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az" }>;
+    params: Promise<{ lang: LangType }>;
     }
         
     export default async function DiscoverService({ params }: NewsPageProps) {

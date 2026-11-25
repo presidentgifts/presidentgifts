@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import {MediaInterface} from "@/interface/products-interface/products-interface";
+import {mediaSrc} from "@/lib/media-src";
 
 interface LeftImagesSectionProps {
     mediaData: MediaInterface[] | undefined;
@@ -18,7 +19,7 @@ export const LeftImagesSection = ({mediaData}: LeftImagesSectionProps) => {
         <div className="h-auto overflow-y-auto pr-1 custom-scroll lg:w-1/2 w-full">
             <div className="flex flex-wrap">
                 {allItems.map((item, index) => {
-                    const src = `${process.env.NEXT_PUBLIC_ADMIN_URL}${item.filePath}`;
+                    const src = mediaSrc(item.filePath);
                     const isVideo = item.mediaType === "VIDEO";
 
                     // Width logic

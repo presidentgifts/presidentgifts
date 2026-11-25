@@ -8,6 +8,7 @@ import Link from "next/link";
 import {getCurrencyCode, getPriceFor} from "@/hooks/price-helpers";
 import {formatCurrency} from "@/hooks/formatPrice";
 import { DictionaryType } from "./basket-right-section";
+import {mediaSrc} from "@/lib/media-src";
 
 export function BasketLeftSection({ dictionary }: DictionaryType) {
     const {
@@ -16,7 +17,6 @@ export function BasketLeftSection({ dictionary }: DictionaryType) {
         decreaseQuantity,
         removeFromBasket
     } = useBasketStore();
-    // console.log(items)
     const code = getCurrencyCode();
     return (
         <div className="w-full lg:w-[70%] pr-4 space-y-4">
@@ -36,7 +36,7 @@ export function BasketLeftSection({ dictionary }: DictionaryType) {
                                 <Link href={`/detail/${item.id}`} className="w-full flex items-center gap-4 ">
                                     <div className="relative w-24 h-24 shrink-0">
                                         <Image
-                                            src={`${process.env.NEXT_PUBLIC_ADMIN_URL}${item.imgUrl}`}
+                                            src={mediaSrc(item.imgUrl)}
                                             alt={'This is image for ' + item.name + ' product'}
                                             fill
                                             className="object-cover rounded-md"

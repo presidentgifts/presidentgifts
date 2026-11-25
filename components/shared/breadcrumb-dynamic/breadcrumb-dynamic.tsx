@@ -10,13 +10,12 @@ import {
 } from "@/components/ui/breadcrumb";
 import {usePathname} from "next/navigation";
 import {useBreadcrumbTranslation} from "@/hooks/useBreadcrumbTranslation";
-
-const localePrefixes = ["uz", "en", "ru"];
+import {isLocale} from "@/lib/i18n-config";
 
 export function BreadcrumbDynamic({url}: { url?: string }) {
     const pathname = usePathname();
     const rawSegments = pathname.split("/").filter(Boolean);
-    const segments = rawSegments.filter((seg, i) => !(i === 0 && localePrefixes.includes(seg)));
+    const segments = rawSegments.filter((seg, i) => !(i === 0 && isLocale(seg)));
     const fullPaths = segments.map((_, i) => "/" + segments.slice(0, i + 1).join("/"));
     const breadcrumbSegments = url ? segments.slice(0, -1) : segments;
     const breadcrumbPaths = url ? fullPaths.slice(0, -1) : fullPaths;

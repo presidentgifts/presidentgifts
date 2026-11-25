@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import React from "react";
 import Catalog from "../components/catalog";
@@ -6,7 +7,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 // import pdf from "@/public/images/"
 
 interface JournalPageProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az" }>;
+  params: Promise<{ lang: LangType }>;
 }
 
 export default async function JournalPage({ params }: JournalPageProps) {
@@ -46,7 +47,7 @@ export default async function JournalPage({ params }: JournalPageProps) {
         </p>
         {/* <Catalog fileUrl="@/public/images/Каталог продукции PBG 2025-2026.pdf" /> */}
       </div>
-      <a href="public/pdf/journal1.pdf" className="underline" download={"juornal.pdf"}>{dictionary.catalog.download}</a>
+      <a href="/pdf/journal1.pdf" className="underline" download={"juornal.pdf"}>{dictionary.catalog.download}</a>
       {/* <div>
         <h2>Ushbu jurnalni o'zingiz uchun yuklab olishingiz mumkin!</h2><br />
         <a href="public/images/Journal.jpg" download={"juornal.jpg"} className="underline cursor-pointer">Yuklab olish</a>

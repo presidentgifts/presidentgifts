@@ -4,7 +4,9 @@ export const discoverModalItems = [
         name: {
             uz: "Yangiliklar",
             ru: "Новости",
-            en: "News"
+            en: "News",
+            tj: "Хабарҳо",
+            az: "Xəbərlər"
         },
         linkSrc: "/new",
     },
@@ -14,7 +16,9 @@ export const discoverModalItems = [
         name: {
             uz: "Biz haqimizda",
             ru: "О нас",
-            en: "About us"
+            en: "About us",
+            tj: "Дар бораи мо",
+            az: "Haqqımızda"
         }
     },
     {
@@ -23,7 +27,9 @@ export const discoverModalItems = [
         name: {
             uz: "Sovg'ada sizning logotipingiz",
             ru: "Ваш логотип на подарке",
-            en: "Your logo on the gift"
+            en: "Your logo on the gift",
+            tj: "Логотипи шумо дар тӯҳфа",
+            az: "Hədiyyədə sizin loqonuz"
         }
     },
     {
@@ -32,19 +38,20 @@ export const discoverModalItems = [
         name: {
             uz: "Ishlab chiqarish",
             ru: "Производство",
-            en: "Production"
+            en: "Production",
+            tj: "Истеҳсолот",
+            az: "İstehsalat"
         }
     },
     {
         id: 4,
         linkSrc: "/discover/care-services",
         name: {
-            uz: "Mahsulotlarga xizmat\n" +
-                "va servis\n",
-            ru: "Уход за изделиями\n" +
-                "и сервис\n",
-            en: "Care of products\n" +
-                "and service"
+            uz: "Mahsulotlarga xizmat va servis",
+            ru: "Уход за изделиями и сервис",
+            en: "Care of products and service",
+            tj: "Нигоҳубини маҳсулот ва хизматрасонӣ",
+            az: "Məhsullara qulluq və servis"
         }
     },
     {
@@ -53,7 +60,9 @@ export const discoverModalItems = [
         name: {
             uz: "Mijozlarga xizmat ko'rsatish",
             ru: "Обслуживание клиентов",
-            en: "Services"
+            en: "Services",
+            tj: "Хизматрасонӣ ба мизоҷон",
+            az: "Müştəri xidməti"
         }
     },
     {
@@ -62,7 +71,9 @@ export const discoverModalItems = [
         name: {
             uz: "Jurnal",
             ru: "Каталог",
-            en: "Journal"
+            en: "Journal",
+            tj: "Каталог",
+            az: "Kataloq"
         }
     }
 ];

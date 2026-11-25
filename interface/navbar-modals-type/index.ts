@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import {ReactNode} from "react";
 
 export interface NavbarModalProps {
@@ -7,5 +8,5 @@ export interface NavbarModalProps {
     side?: "top" | "bottom" | "right" | "left";
     sheetTitle?: string;
     textColorClass?: string;
-    lang: "uz" | "ru" | "en" 
+    lang: LangType 
 }

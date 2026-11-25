@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import React, { FC } from "react";
 
 interface DiscoverProps {
@@ -8,7 +9,7 @@ interface DiscoverProps {
       description: string;   // e.g. description paragraph
     };
   };
-  lang: "uz" | "ru" | "en" | "tj" | "az";
+  lang: LangType;
 }
 
 const DiscoverAboutHeader: FC<DiscoverProps> = ({ dictionary }) => {

@@ -11,6 +11,7 @@ import { useBasketStore } from "@/lib/set-basket.storage";
 import { useRouter } from "next/navigation";
 import { getCurrencyCode, getPriceFor } from "@/hooks/price-helpers";
 import { formatCurrency } from "@/hooks/formatPrice";
+import {mediaSrc} from "@/lib/media-src";
 
 interface FavoriteCardProps {
   onRemove?: () => void;
@@ -49,7 +50,7 @@ export default function FavoriteCard({ onRemove, itemID, dictionary }: FavoriteC
   // Rasm massivini tayyorlash
   const images = product?.media
     ?.filter((media) => media.filePath)
-    .map((media) => `${process.env.NEXT_PUBLIC_ADMIN_URL}${media.filePath}`) || [];
+    .map((media) => mediaSrc(media.filePath)) || [];
 
   // Rasm almashish uchun interval
   useEffect(() => {

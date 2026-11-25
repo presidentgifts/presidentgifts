@@ -1,32 +1,16 @@
-'use server'
+import "server-only";
 
-import {cookies} from 'next/headers';
-import {fetcher} from "@/lib/fetcher";
+import {fetcherOr} from "@/lib/fetcher";
+import {getLocaleContext} from "@/lib/locale-context";
 
-interface CountryCookie {
-    name: string;
-    code: string;
+// Keep in sync with CATEGORY_PAGE_SIZE in category-products-client.service.ts
+export const PRODUCTS_PAGE_SIZE = 12;
+
+export function categoryProductsUrl(categoryId: number, langCode: string, countryCode: string, page = 0) {
+    return `/api/v1/category/product_page_by_category_id_and_locale?categoryId=${categoryId}&languageCode=${langCode}&countryCode=${countryCode}&page=${page}&size=${PRODUCTS_PAGE_SIZE}`;
 }
 
-export async function ProductChildService(parentId: number) {
-
-    const cookieStore = await cookies();
-
-    const lang = cookieStore.get('lang')?.value || 'en';
-
-    let countryCode = 'UZ';
-
-    const countryRaw = cookieStore.get('country')?.value;
-
-    if (countryRaw) {
-        try {
-            const country: CountryCookie = JSON.parse(countryRaw);
-            countryCode = country.code || 'UZ';
-        } catch (err) {
-            console.warn('Invalid country cookie format, using default UZ', err);
-        }
-    }
-
-    const url = `/api/v1/category/product_page_by_category_id_and_locale?categoryId=${parentId}&languageCode=${lang.toUpperCase()}&countryCode=${countryCode}&page=0&size=10`
-    return await fetcher(url);
+export async function ProductChildService(categoryId: number, page = 0) {
+    const {langCode, countryCode} = await getLocaleContext();
+    return fetcherOr<unknown>(categoryProductsUrl(categoryId, langCode, countryCode, page), {data: [], totalElements: 0});
 }

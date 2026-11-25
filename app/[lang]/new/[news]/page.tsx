@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import {BreadcrumbDynamic} from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,10 +10,12 @@ import {NewsListService} from "@/service/home-service/newslist.service";
 import FormattedText from "@/components/shared/formatted-text/formatted-text";
 import {splitNameAndIdFromParam} from "@/hooks/get-breadcrumb";
 import { getDictionary } from "@/lib/get-dictionary";
+import {mediaSrc} from "@/lib/media-src";
+import {notFound} from "next/navigation";
 
 interface NewsPageProps {
     params: Promise<{
-        lang: "uz" | "ru" | "en";
+        lang: LangType;
         news: string;
     }>;
 }
@@ -21,7 +24,8 @@ export default async function News({params}: NewsPageProps) {
     const News = await params.then((params) => params);
     const NewsItem = splitNameAndIdFromParam(News.news)
     const dictionary = await getDictionary(News.lang);
-    const NewData: NewsItemInterface = await NewsService(Number(NewsItem.id)) as NewsItemInterface
+    const NewData = await NewsService(Number(NewsItem.id)) as NewsItemInterface | null
+    if (!NewData?.id) notFound();
     const NewList: NewsItemInterface[] = await NewsListService() as NewsItemInterface[]
 
     return (
@@ -32,7 +36,7 @@ export default async function News({params}: NewsPageProps) {
             <div className="container ">
                 {NewData.image_page?.filePath && (
                     <Image
-                        src={`${process.env.NEXT_PUBLIC_ADMIN_URL}${NewData?.image_page.filePath}`}
+                        src={mediaSrc(NewData?.image_page.filePath)}
                         alt={"Showcase Image data"}
                         width={"1000"}
                         height={"100"}

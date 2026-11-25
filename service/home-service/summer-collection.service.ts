@@ -1,33 +1,9 @@
-'use server'
+import "server-only";
 
-import {cookies} from 'next/headers';
-import {fetcher} from "@/lib/fetcher";
+import {fetcherOr} from "@/lib/fetcher";
+import {getLocaleContext} from "@/lib/locale-context";
 
-interface CountryCookie {
-    name: string;
-    code: string;
-}
-
-export async function SummerCollectionService(id:number) {
-    
-    const cookieStore = await cookies();
-
-    const lang = cookieStore.get('lang')?.value.toUpperCase() || 'EN';
-
-    let countryCode = 'UZ';
-
-    const countryRaw = cookieStore.get('country')?.value.toUpperCase();
-
-    if (countryRaw) {
-        try {
-            const country: CountryCookie = JSON.parse(countryRaw);
-            countryCode = country.code || 'UZ';
-        } catch (err) {
-            console.warn('Invalid country cookie format, using default UZ', err);
-        }
-    }
-
-const url=`/api/v1/collections/by_id_and_locale_with_media_and_products?collectionId=${id}&languageCode=${lang.toUpperCase()}&country_code=${countryCode}`
-
-    return await fetcher(url);
+export async function SummerCollectionService(id: number) {
+    const {langCode, countryCode} = await getLocaleContext();
+    return fetcherOr<unknown>(`/api/v1/collections/by_id_and_locale_with_media_and_products?collectionId=${id}&languageCode=${langCode}&country_code=${countryCode}`, null);
 }

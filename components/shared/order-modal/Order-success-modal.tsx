@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { CircleCheckBig } from "lucide-react";
+import { useUiText } from "@/provider/ui-text-provider";
 
 export default function OrderSuccessModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
     const router = useRouter();
+    const t = useUiText().order.success;
 
     const handleGoHome = () => {
         router.push("/");
@@ -24,17 +26,17 @@ export default function OrderSuccessModal({ isOpen, onClose }: { isOpen: boolean
             <DialogContent className="max-w-sm text-center">
                 <DialogHeader className="flex flex-col items-center justify-center gap-2 mb-4">
                     <CircleCheckBig className="w-16 h-16 text-green-600" />
-                    <DialogTitle className="text-2xl font-bold text-green-600">Заказ успешно оформлен!</DialogTitle>
+                    <DialogTitle className="text-2xl font-bold text-green-600">{t.title}</DialogTitle>
                 </DialogHeader>
                 <p className="text-gray-600 text-sm mt-2">
-                    Благодарим за ваш заказ! Мы свяжемся с вами в ближайшее время для подтверждения и уточнения деталей.
+                    {t.text}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 mt-4 justify-center">
                     <Button onClick={handleGoHome} className="w-full sm:w-auto">
-                        На главную
+                        {t.home}
                     </Button>
                     <Button variant="outline" onClick={handleGoAccount} className="w-full sm:w-auto">
-                        В личный кабинет
+                        {t.account}
                     </Button>
                 </div>
             </DialogContent>

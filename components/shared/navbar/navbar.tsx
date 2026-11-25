@@ -19,7 +19,8 @@ import {
   LanguageType,
 } from "@/interface/language&country-type/language-type";
 import { getAllCountry } from "@/service/navbar-service/country.service";
-import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
+import { Locale } from "@/lib/i18n-config";
 import ShopModalContent from "../modalContents/shopModal";
 import { getCategoryModal } from "@/service/home-service/category-mobile.service";
 import { getAllCurrency } from "@/service/navbar-service/currency.service";
@@ -43,42 +44,30 @@ interface NavbarProps {
       close: string;
     };
   };
-  lang: "uz" | "ru" | "en" 
+  lang: Locale;
 }
 
 export const Navbar = ({ lang, dictionary }: NavbarProps) => {
   const [languages, setLanguages] = useState<LanguageType[]>([]);
   const [county, setCountry] = useState<CountryType[]>([]);
-  const cookiesCountry = Cookies.get("country");
   const [currency, setCurrency] = useState<CurrencyType[] | undefined>();
   const [category, setCategory] = useState<Category[]>([]);
+  const router = useRouter();
 
   useEffect(() => {
-    const fetchLang = async () => {
-      const data = await getAllLanguage();
-      setLanguages(data);
-    };
-    fetchLang().then().catch().finally();
-
-    const fetchCurrency = async () => {
-      const data = await getAllCurrency();
-      setCurrency(data);
-    };
-    fetchCurrency().then().catch().finally();
-
-    const fetchCounty = async () => {
-      const data = await getAllCountry();
-      setCountry(data);
-    };
-    fetchCounty().then().catch().finally();
-  }, [cookiesCountry]);
-  useEffect(() => {
-    const fetchCategory = async () => {
-      const data: Category[] = (await getCategoryModal()) as Category[];
-      setCategory(data);
-    };
-    fetchCategory().then().catch().finally();
-  }, []);
+    getAllLanguage().then(setLanguages).catch(() => setLanguages([]));
+    getAllCountry().then(setCountry).catch(() => setCountry([]));
+    getCategoryModal()
+      .then((data) => setCategory((data as Category[]) ?? []))
+      .catch(() => setCategory([]));
+    getAllCurrency()
+      .then(({ currencies, changed }) => {
+        setCurrency(currencies);
+        // Selected currency isn't offered in this country: prices must be re-rendered.
+        if (changed) router.refresh();
+      })
+      .catch(() => setCurrency([]));
+  }, [router]);
 
   return (
     <nav
@@ -136,7 +125,6 @@ export const Navbar = ({ lang, dictionary }: NavbarProps) => {
               <p
                 className={`text-primary !hover:text-zinc-300 text-lg font-normal transition-colors duration-200`}
               >
-                {/* {`${lang.toUpperCase()}`}  */}
                 <Globe 
                     width={24}
                     height={24}
@@ -174,7 +162,7 @@ export const Navbar = ({ lang, dictionary }: NavbarProps) => {
         languages={languages}
         county={county}
         currency={currency}
-        // dictionary=
+        category={category}
       />
     </nav>
   );

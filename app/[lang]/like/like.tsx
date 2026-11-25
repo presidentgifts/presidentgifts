@@ -1,4 +1,5 @@
 "use client";
+import {LangType} from "@/interface/lang/lang-type";
 
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import { LikeNotFound } from "@/components/shared/like-not-found/like-not-found";
@@ -8,7 +9,7 @@ import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 
 interface LikeProps {
-  lang: "uz" | "ru" | "en" | "tj" | "az";
+  lang: LangType;
   dictionary: {
     like: {
       addToBasket: string;
@@ -16,9 +17,8 @@ interface LikeProps {
   };
 }
 
-export default function LikePage({ dictionary, lang }: LikeProps) {
+export default function LikePage({ dictionary }: LikeProps) {
   const { items, removeFromWishlist } = useWishlistStore();
-console.log(lang)
   return (
     <div>
       <div className="container md:!mt-26 !mt-42">

@@ -1,17 +1,18 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import Image from "next/image";
 import images2 from "@/public/images/Записаться_на_визит.png";
 import BoutiqueForm from "@/app/[lang]/shops/components/boutique-form/boutique-form";
 import { getDictionary } from "@/lib/get-dictionary";
 interface AppointmentPageProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az"; category: string }>;
+  params: Promise<{ lang: LangType; category: string }>;
 }
 
 export default async function AppointmentPage({
   params,
 }: AppointmentPageProps) {
   const AppointmentPageParam: {
-    lang: "uz" | "ru" | "en" | "tj" | "az";
+    lang: LangType;
     category: string;
   } = await params;
   const dictionary = await getDictionary(AppointmentPageParam.lang);

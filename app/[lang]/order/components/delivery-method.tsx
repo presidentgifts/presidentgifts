@@ -14,11 +14,13 @@ import {
 } from "@/components/ui/dialog";
 import {Button} from "@/components/ui/button";
 import dynamic from "next/dynamic";
+import {useUiText} from "@/provider/ui-text-provider";
 
 const LeafletMap = dynamic(() => import("./map-modal"), {ssr: false});
 
 const AddressForm = () => {
     const {control, setValue} = useFormContext();
+    const t = useUiText().order;
     const [isOpen, setIsOpen] = useState(false);
 
     const location = useWatch({name: "address.location", control});
@@ -38,7 +40,7 @@ const AddressForm = () => {
     return (
         <div className="p-6 rounded-[4px] border">
             <h2 className="text-lg font-semibold mb-4">
-                Способ получения и адрес доставки:
+                {t.deliveryTitle}
             </h2>
 
             <div className="space-y-5">
@@ -47,12 +49,12 @@ const AddressForm = () => {
                     name="address.text"
                     render={({field}) => (
                         <FormItem>
-                            <FormLabel className="text-sm">Куда доставить заказ?</FormLabel>
+                            <FormLabel className="text-sm">{t.addressLabel}</FormLabel>
                             <FormControl>
-                                <Input placeholder="Адрес" {...field} />
+                                <Input placeholder={t.addressPlaceholder} {...field} />
                             </FormControl>
                             <p className="text-sm text-muted-foreground">
-                                Укажите адрес на карте или используйте поиск
+                                {t.addressHint}
                             </p>
                             <FormMessage/>
                         </FormItem>
@@ -61,22 +63,22 @@ const AddressForm = () => {
 
                 <FormField
                     control={control}
-                    name="address.location.lat"
+                    name="address.location"
                     render={() => (
                         <FormItem>
-                            <FormLabel className="text-sm">Локация на карте</FormLabel>
+                            <FormLabel className="text-sm">{t.mapLabel}</FormLabel>
                             <FormControl>
                                 <Dialog open={isOpen} onOpenChange={setIsOpen}>
                                     <DialogTrigger asChild>
                                         <Button type="button" variant="default" className="w-full">
-                                            Обозначение по карте
+                                            {location ? `${t.mapButton} ✓` : t.mapButton}
                                         </Button>
                                     </DialogTrigger>
                                     <DialogContent className="max-w-4xl">
                                         <DialogHeader>
-                                            <DialogTitle>Выберите точку на карте</DialogTitle>
+                                            <DialogTitle>{t.mapDialogTitle}</DialogTitle>
                                             <DialogDescription>
-                                                Нажмите на нужное место на карте для выбора адреса.
+                                                {t.mapDialogDescription}
                                             </DialogDescription>
                                         </DialogHeader>
 
@@ -86,8 +88,8 @@ const AddressForm = () => {
                                         />
 
                                         <div className="flex justify-end pt-4">
-                                            <Button onClick={handleSave} type="button">
-                                                Сохранить локацию
+                                            <Button onClick={handleSave} type="button" disabled={!tempPosition}>
+                                                {t.saveLocation}
                                             </Button>
                                         </div>
                                     </DialogContent>

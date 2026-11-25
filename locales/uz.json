@@ -12,7 +12,6 @@
     "title": "Yangiliklar",
     "newArrival": "Hoziroq sotib olish"
   },
-
   "productVideos": {
     "title": "Mahsulot Videolari"
   },
@@ -20,6 +19,24 @@
     "title": "So'rov qoldiring",
     "supportform": "So'rov qoldiring va menejerimiz barcha tafsilotlarni aniqlashtirish va mukammal sovg'ani tanlash uchun tez orada siz bilan bog'lanadi.",
     "form": {
+      "email": {
+        "label": "Elektron pochta",
+        "placeholder": "Pochtangizni kiriting"
+      },
+      "location": {
+        "label": "Shahar",
+        "placeholder": "Shahringizni kiriting"
+      },
+      "date": {
+        "label": "Tashrif sanasi"
+      },
+      "time": {
+        "label": "Tashrif vaqti"
+      },
+      "comment": {
+        "label": "Izoh",
+        "placeholder": "Xabaringizni shu yerga yozing"
+      },
       "name": {
         "label": "Ism",
         "placeholder": "Ismingizni yozing"
@@ -42,7 +59,6 @@
       "modalSuccessDescription": "Yaqin orada President Business Gifts jamoasi siz bilan bog‘lanadi. Biz sizga eng yaxshi xizmat ko‘rsatishdan mamnun bo‘lamiz!"
     }
   },
-
   "location": {
     "title": "Filiallar",
     "text": "Manzillar"
@@ -77,7 +93,6 @@
     "title": "Kolleksiyalar",
     "newArrival": "Kolleksiyani ko‘rish"
   },
-
   "story": {
     "story": "HIKOYA"
   },
@@ -136,14 +151,13 @@
     "aboutJournalDesc2": "Buni amalga oshirish uchun jurnalni o‘ngdan chapga suring yoki rasmlar ustiga bir marta bosing.",
     "aboutJournalDesc3": "Agar jurnal rasmlari sizda ko‘rinmasa, biroz kuting! ",
     "aboutJournalDesc4": "Rahmat :)",
-    "download":" Bu yerda jurnalning barcha qismlarini yuklab olishingiz mumkin!"
+    "download": " Bu yerda jurnalning barcha qismlarini yuklab olishingiz mumkin!"
   },
   "finewatch": {
     "breadcrumb": "Minerva merosiga hurmat",
     "maintext": "President Business Gifts'da biz shunchaki sovg‘alar emas — biz qadriyatlar yaratamiz. Har bir mahsulot g‘oyadan mukammal ijrogacha bo‘lgan yo‘lni jamoamiz nazorati ostida bosib o‘tadi.\nBiz dizaynni o‘zimiz ishlab chiqamiz, premium darajadagi materiallarni tanlaymiz va ishlab chiqarishning har bir bosqichini nazorat qilamiz.",
     "title": "Minerva merosiga hurmat",
     "rightSideTitle": "Har bir detalda mahorat",
-
     "craftsmanship": {
       "productType": "Mahorat",
       "description": "Estetik va texnik mukammallik",
@@ -310,5 +324,196 @@
     "no_products": "Mahsulotlar topilmadi",
     "product_types": "Mahsulot turlari",
     "close": "Yopish"
+  },
+  "ui": {
+    "common": {
+      "pcs": "dona",
+      "save": "Saqlash",
+      "yes": "Ha",
+      "no": "Yo'q",
+      "loading": "Yuklanmoqda...",
+      "notAvailable": "Bu funksiya tez orada ishga tushadi."
+    },
+    "product": {
+      "addToCart": "Savatga qo'shish",
+      "goToCart": "Savat →",
+      "deliveryNote": "Buyurtmangizni imkon qadar tez va qulay yetkazib berishga harakat qilamiz.",
+      "details": "Batafsil",
+      "shareUnsupported": "Bu qurilmada ulashish qo'llab-quvvatlanmaydi.",
+      "linkCopied": "Havola nusxalandi"
+    },
+    "order": {
+      "title": "Buyurtmani rasmiylashtirish",
+      "createdAt": "Yaratilgan",
+      "deliveryTitle": "Qabul qilish usuli va yetkazib berish manzili",
+      "addressLabel": "Buyurtmani qayerga yetkazaylik?",
+      "addressPlaceholder": "Manzil",
+      "addressHint": "Manzilni kiriting va xaritada belgilang",
+      "mapLabel": "Xaritadagi joylashuv",
+      "mapButton": "Xaritada belgilash",
+      "mapDialogTitle": "Xaritada nuqtani tanlang",
+      "mapDialogDescription": "Manzilni tanlash uchun xaritadagi kerakli joyni bosing.",
+      "saveLocation": "Joylashuvni saqlash",
+      "orderedProducts": "Buyurtma qilingan mahsulotlar",
+      "sku": "Artikul",
+      "recipientTitle": "Qabul qiluvchi ma'lumotlari",
+      "firstName": "Ism",
+      "firstNamePlaceholder": "Ismingizni kiriting",
+      "lastName": "Familiya",
+      "lastNamePlaceholder": "Familiyangizni kiriting",
+      "phone": "Telefon raqami",
+      "phonePlaceholder": "+998 90 123 45 67",
+      "secondPhone": "Qo'shimcha raqam (ixtiyoriy)",
+      "summaryTitle": "Buyurtma tafsilotlari",
+      "quantity": "Mahsulotlar soni",
+      "productsPrice": "Mahsulotlar narxi",
+      "total": "Jami",
+      "submit": "Buyurtma berish",
+      "submitting": "Yuborilmoqda...",
+      "error": "Buyurtmani rasmiylashtirib bo'lmadi. Qaytadan urinib ko'ring.",
+      "success": {
+        "title": "Buyurtma muvaffaqiyatli rasmiylashtirildi!",
+        "text": "Buyurtmangiz uchun rahmat! Tafsilotlarni tasdiqlash uchun tez orada siz bilan bog'lanamiz.",
+        "home": "Bosh sahifaga",
+        "account": "Shaxsiy kabinetga"
+      },
+      "validation": {
+        "addressRequired": "Manzil kiritilishi shart",
+        "chooseOnMap": "Iltimos, joylashuvni xaritada tanlang",
+        "nameMin": "Kamida 2 ta belgi",
+        "nameMax": "Juda uzun",
+        "phoneInvalid": "To'g'ri raqam kiriting, masalan +998901234567",
+        "secondPhoneInvalid": "To'g'ri raqam kiriting yoki bo'sh qoldiring"
+      }
+    },
+    "account": {
+      "title": "Mening hisobim",
+      "details": "Hisob ma'lumotlari",
+      "fullName": "To'liq ism",
+      "fullNamePlaceholder": "Ismingizni kiriting",
+      "email": "Elektron pochta",
+      "emailPlaceholder": "Pochta manzilini kiriting",
+      "nav": {
+        "details": "Hisob ma'lumotlari",
+        "favorites": "Sevimlilar",
+        "orders": "Buyurtmalar",
+        "changePassword": "Parolni o'zgartirish",
+        "changeEmail": "Pochtani o'zgartirish",
+        "logout": "Chiqish"
+      },
+      "logoutConfirm": "Haqiqatan ham chiqmoqchimisiz?",
+      "orders": {
+        "title": "Mening buyurtmalarim",
+        "empty": "Siz hali buyurtma bermagansiz.",
+        "orderId": "Buyurtma ID",
+        "status": "Buyurtma holati",
+        "createdAt": "Buyurtma sanasi",
+        "address": "Manzil",
+        "quantity": "Mahsulotlar soni",
+        "total": "Jami",
+        "showProducts": "Mahsulotlarni ko'rsatish",
+        "hide": "Yashirish",
+        "viewItem": "Mahsulotni ko'rish"
+      },
+      "favorites": {
+        "title": "Sevimlilar",
+        "count": "Sevimlilar ro'yxatida: {count} ta mahsulot",
+        "emptyText": "Mahsulotni sevimlilarga qo'shish uchun yonidagi yurakcha belgisini bosing. Sevimlilaringizni istalgan vaqtda ko'rishingiz, sotib olishingiz va ulashishingiz mumkin.",
+        "continueShopping": "Xaridni davom ettirish"
+      },
+      "changePassword": {
+        "title": "Parolni o'zgartirish",
+        "current": "Joriy parol",
+        "currentPlaceholder": "Joriy parolni kiriting",
+        "new": "Yangi parol",
+        "newPlaceholder": "Yangi parolni kiriting",
+        "confirm": "Yangi parolni tasdiqlang",
+        "confirmPlaceholder": "Yangi parolni takrorlang"
+      },
+      "changeEmail": {
+        "title": "Pochtani o'zgartirish",
+        "current": "Joriy pochta",
+        "new": "Yangi pochta",
+        "newPlaceholder": "Yangi pochtani kiriting",
+        "confirm": "Yangi pochtani tasdiqlang",
+        "confirmPlaceholder": "Yangi pochtani takrorlang"
+      }
+    },
+    "auth": {
+      "login": {
+        "title": "Kirish",
+        "subtitle": "Xush kelibsiz! Hisobingizga kiring",
+        "email": "Elektron pochta",
+        "emailPlaceholder": "Pochtangizni kiriting",
+        "password": "Parol",
+        "passwordPlaceholder": "Parolingizni kiriting",
+        "forgot": "Parolni unutdingizmi?",
+        "submit": "Kirish",
+        "google": "Google orqali davom etish",
+        "noAccount": "Hisobingiz yo'qmi?",
+        "signUp": "Ro'yxatdan o'tish",
+        "invalid": "Email yoki parol noto'g'ri",
+        "network": "Tarmoq xatosi, qaytadan urinib ko'ring"
+      },
+      "register": {
+        "title": "Hisob yaratish",
+        "subtitle": "Ro'yxatdan o'tish uchun formani to'ldiring",
+        "fullName": "To'liq ism",
+        "fullNamePlaceholder": "To'liq ismingiz",
+        "submit": "Ro'yxatdan o'tish",
+        "creating": "Yaratilmoqda...",
+        "haveAccount": "Hisobingiz bormi?",
+        "login": "Kirish",
+        "error": "Ro'yxatdan o'tib bo'lmadi. Bu pochta allaqachon ro'yxatdan o'tgan bo'lishi mumkin.",
+        "confirmPassword": "Parolni tasdiqlang"
+      },
+      "forgot": {
+        "title": "Parolni unutdingizmi?",
+        "description": "President hisobingiz pochtasini kiriting — yangi parol yaratish uchun havola yuboramiz. Havola 24 soat amal qiladi.",
+        "submit": "Yuborish"
+      }
+    },
+    "userMenu": {
+      "benefits": "President imkoniyatlaridan foydalaning",
+      "createAccount": "Hisob yaratish",
+      "login": "Kirish",
+      "profile": "Profil",
+      "logout": "Chiqish"
+    },
+    "b2b": {
+      "title": "Logotipingizni mahsulotlarimizda sinab ko'ring",
+      "description": "Kompaniyangiz logotipini yuklang va u premium sovg'alarda — klatch, sumka, vizitnitsa va boshqa buyumlarda qanday ko'rinishini darhol ko'ring.",
+      "authErrorTitle": "Avtorizatsiya talab qilinadi",
+      "authErrorDesc": "Fayl yuklashdan oldin tizimga kiring.",
+      "uploadHint": "Logotipingizni yuklang (PNG, 3MB dan kichik).",
+      "chooseFile": "Fayl tanlash",
+      "noFile": "Fayl tanlanmagan",
+      "uploading": "Yuklanmoqda...",
+      "tooLarge": "Fayl hajmi 3MB dan kichik bo'lishi kerak.",
+      "uploadError": "Rasmni qayta ishlab bo'lmadi. Qaytadan urinib ko'ring.",
+      "clutch": {
+        "title": "Klatch",
+        "desc": "Logotipingiz klatchda qanday ko'rinishini ko'rmoqchimisiz? Logotip rasmini yuklang va hoziroq sinab ko'ring!"
+      },
+      "bag": {
+        "title": "Sumka",
+        "desc": "Brendingiz logotipi tushirilgan sumkani tasavvur qiling. Natijani ko'rmoqchimisiz? Hoziroq sinab ko'ring!"
+      },
+      "watch": {
+        "title": "Soat",
+        "desc": "Brendingiz logotipini hatto qo'l soatining ichki qismiga ham tushiramiz — bu nozik va aniq ish. Albatta sinab ko'ring!"
+      }
+    }
+  },
+  "breadcrumb": {
+    "president": "President business gifts",
+    "discover": "Ko'proq bilish",
+    "shop": "Do'kon",
+    "account": "Hisob",
+    "news": "Yangiliklar",
+    "about": "Biz haqimizda",
+    "category": "Kategoriya",
+    "collections": "Kolleksiyalar",
+    "corporategifts": "Korporativ sovg'alar"
   }
 }

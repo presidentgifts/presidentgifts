@@ -8,7 +8,7 @@ import {buttonVariants} from "@/components/ui/button";
 import {ResponsiveValue} from "@/hooks/get-responsive-value";
 import {useSession} from "next-auth/react";
 import {toast} from "sonner";
-import {useRouter} from 'next/navigation';
+import {useUiText} from "@/provider/ui-text-provider";
 
 interface B2bCardProps {
     className?: string;
@@ -18,21 +18,23 @@ interface B2bCardProps {
     size: number;
     title: string;
     desc: string,
+    /** Unique id of the file input (several cards are on one page). */
+    inputId: string,
 }
 
-export const B2bCard = ({className, image, top, right, size, title, desc,}: B2bCardProps) => {
+export const B2bCard = ({className, image, top, right, size, title, desc, inputId}: B2bCardProps) => {
+    const t = useUiText().b2b;
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [uploading, setUploading] = useState(false);
     const [processedImage, setProcessedImage] = useState<string | null>(null);
     const {data: session} = useSession();
-    const router = useRouter();
 
 
     const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 
         if (!session?.user?.serverData?.id) {
-            toast.error("Ошибка авторизации", {
-                description: "Пожалуйста, войдите в систему перед загрузкой файла.",
+            toast.error(t.authErrorTitle, {
+                description: t.authErrorDesc,
                 className: "!bg-white !text-black",
                 descriptionClassName: "!text-black"
             });
@@ -40,13 +42,17 @@ export const B2bCard = ({className, image, top, right, size, title, desc,}: B2bC
         }
 
         const file = e.target.files?.[0];
-        if (!file || file.size > 3 * 1024 * 1024) return;
+        if (!file) return;
+        if (file.size > 3 * 1024 * 1024) {
+            toast.error(t.tooLarge);
+            return;
+        }
 
 
         setSelectedImage(file.name);
         const formData = new FormData();
         formData.append("file", file);
-        formData.append("userId", "a049f6e0-4162-4173-abd2-e74de8476c0e");
+        // The server takes the user id from the session.
 
         try {
             setUploading(true);
@@ -55,16 +61,17 @@ export const B2bCard = ({className, image, top, right, size, title, desc,}: B2bC
                 body: formData
             });
 
-            if (!res.ok) new Error("Upload failed");
+            if (!res.ok) throw new Error("Upload failed");
 
             const blob = await res.blob();
-            const imageUrl = URL.createObjectURL(blob);
-            setProcessedImage(imageUrl);
-            router.refresh()
+            setProcessedImage((previous) => {
+                if (previous) URL.revokeObjectURL(previous);
+                return URL.createObjectURL(blob);
+            });
 
         } catch (error) {
             console.error("Upload error:", error);
-            console.log(processedImage)
+            toast.error(t.uploadError);
         } finally {
             setUploading(false);
         }
@@ -82,15 +89,15 @@ export const B2bCard = ({className, image, top, right, size, title, desc,}: B2bC
                     <Image src={Placeholder} alt="placeholder" width={96} height={96}/>
                     <div className="w-full">
                         <p className="text-sm text-primary mb-2">
-                            Пожалуйста, загрузите свой логотип, размер должен быть меньше <br/> 3MB.
+                            {t.uploadHint}
                         </p>
-                        <input id="image" type="file" accept="image/png" className="hidden"
+                        <input id={inputId} type="file" accept="image/png" className="hidden"
                                onChange={handleImageChange}/>
                         <div className="w-full flex gap-2 items-center justify-between">
-                            <div>{uploading ? "Uploading..." : selectedImage || "Нет выбора файла"}</div>
-                            <label htmlFor="image"
+                            <div>{uploading ? t.uploading : selectedImage || t.noFile}</div>
+                            <label htmlFor={inputId}
                                    className={`${buttonVariants({variant: "secondary"})} w-[30px] cursor-pointer`}>
-                                Выбрать файл
+                                {t.chooseFile}
                             </label>
                         </div>
                     </div>
@@ -119,7 +126,7 @@ export const B2bCard = ({className, image, top, right, size, title, desc,}: B2bC
                 {/*</div>*/}
             </div>
 
-            <RightImage top={top} right={right} size={size} image={image}/>
+            <RightImage top={top} right={right} size={size} image={image} uploadedSrc={processedImage}/>
         </div>
     );
 };

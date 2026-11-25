@@ -1,104 +1,89 @@
 'use client'
 
+import {useMemo, useState} from "react";
 import {FormProvider, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {toast} from "sonner";
 import {BreadcrumbDynamic} from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import AddressForm from "@/app/[lang]/order/components/delivery-method";
 import OrderSummary from "@/app/[lang]/order/components/order-summary";
-import {OrderFormData, OrderSchema} from "@/interface/order-schema/order-schema";
+import {createOrderSchema, OrderFormData} from "@/interface/order-schema/order-schema";
 import CheckoutForm from "@/app/[lang]/order/components/checkout-form";
 import OrderedProducts from "@/app/[lang]/order/components/order-produc-list";
 import {useBasketStore} from "@/lib/set-basket.storage";
 import OrderSuccessModal from "@/components/shared/order-modal/Order-success-modal";
-import {useState} from "react";
-import {useSession} from "next-auth/react";
+import {useUiText} from "@/provider/ui-text-provider";
+import {getClientCountryCode} from "@/lib/locale-context-client";
+import {formatDate} from "@/hooks/format-data";
+import {useParams} from "next/navigation";
+import {normalizeLocale} from "@/lib/i18n-config";
 
 export default function OrderPage() {
-    const {items} = useBasketStore();
+    const t = useUiText().order;
+    const {lang} = useParams<{ lang: string }>();
+    const {items, clearBasket} = useBasketStore();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const {data: session} = useSession();
+    const [isOrderPlaced, setIsOrderPlaced] = useState(false);
+    const [createdAt] = useState(() => new Date().toISOString());
 
+    const schema = useMemo(() => createOrderSchema(t.validation), [t.validation]);
 
     const methods = useForm<OrderFormData>({
-        resolver: zodResolver(OrderSchema),
+        resolver: zodResolver(schema),
         defaultValues: {
-            address: {
-                text: "",
-                location: {
-                    lat: 41.3,
-                    lng: 69.2,
-                },
-            },
-            userInformation: {
-                name: "",
-                secondment: "",
-                phone: "",
-                secondPhone: "",
-            },
-        }
+            address: {text: "", location: null},
+            userInformation: {name: "", secondment: "", phone: "", secondPhone: ""},
+        },
     });
 
     const onSubmit = async (data: OrderFormData) => {
+        const location = data.address.location!;
+        const payload = {
+            status: "CONFIRMED",
+            client_first_phone: data.userInformation.phone,
+            client_second_phone: data.userInformation.secondPhone,
+            client_full_name: `${data.userInformation.name} ${data.userInformation.secondment}`.trim(),
+            address: {
+                countryCode: getClientCountryCode(),
+                location: data.address.text,
+                latitude: location.lat,
+                longitude: location.lng,
+            },
+            // Amounts are stored by the backend in USD.
+            totalAmount: items.reduce((total, item) => total + item.basePriceToUSD * item.quantity, 0),
+            items: items.map((item) => ({
+                productId: item.id,
+                quantity: item.quantity,
+                unitPrice: item.basePriceToUSD,
+                totalPrice: item.basePriceToUSD * item.quantity,
+            })),
+        };
+
         try {
-            const payload = {
-                customerId: session?.user.serverData?.id,
-                status: "CONFIRMED",
-                client_first_phone: data.userInformation.phone,
-                client_second_phone: data.userInformation.secondPhone,
-                address: {
-                    countryCode: "UZ",
-                    location: data.address.text,
-                    latitude: data.address.location.lat,
-                    longitude: data.address.location.lng,
-                },
-                totalAmount: items.reduce((total, item) => total + item.basePriceToUSD * item.quantity, 0),
-                items: items.map((item) => ({
-                    productId: item.id,
-                    quantity: item.quantity,
-                    unitPrice: item.price,
-                    totalPrice: item.basePriceToUSD * item.quantity,
-                }))
-            };
-
-            const authString = btoa(`${process.env.NEXT_PUBLIC_BASIC_ADMIN}:${process.env.NEXT_PUBLIC_BASIC_PASSWORD}`);
-
-            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/orders/create`, {
+            // customerId is filled in by the server from the signed-in session.
+            const res = await fetch("/api/backend/orders/create", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    'Authorization': `Basic ${authString}`,
-                },
+                headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(payload),
             });
+            if (!res.ok) throw new Error(`Order failed: ${res.status}`);
 
-            if (!res.ok) {
-                throw new Error("Xatolik yuz berdi: " + res.status);
-            }
-
-            const result = await res.json();
-            console.log("Buyurtma muvaffaqiyatli:", result);
-
+            setIsOrderPlaced(true);
+            clearBasket();
             setIsModalOpen(true);
         } catch (error) {
-            console.error("Buyurtma yuborishda xatolik:", error);
+            console.error("Order error:", error);
+            toast.error(t.error);
         }
     };
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = (now.getMonth() + 1).toString().padStart(2, "0");
-    const day = now.getDate().toString().padStart(2, "0");
-    const hours = now.getHours().toString().padStart(2, "0");
-    const minutes = now.getMinutes().toString().padStart(2, "0");
-
 
     return (
         <div>
             <div className={"container md:!mt-26 !mt-42"}>
                 <BreadcrumbDynamic/>
-                <h2 className="text-primary text-4xl font-medium leading-10 my-5">Проверить</h2>
-                {/* <h3 className="text-primary text-2xl font-medium leading-10 my-3">Оформить заказ ID: 3213321321</h3> */}
+                <h2 className="text-primary text-4xl font-medium leading-10 my-5">{t.title}</h2>
                 <p className="text-gray-500 text-base font-medium leading-tight tracking-tight">
-                    Создано: {year}:{month}:{day} / {hours}:{minutes}
+                    {t.createdAt}: {formatDate(createdAt, normalizeLocale(lang))}
                 </p>
             </div>
 
@@ -107,10 +92,10 @@ export default function OrderPage() {
                     <div className="container flex flex-col-reverse md:flex-row justify-between gap-10 !mt-5 relative">
                         <div className={'w-full'}>
                             <AddressForm/>
-                            <OrderedProducts products={items}/>
+                            <OrderedProducts products={items} redirectWhenEmpty={!isOrderPlaced}/>
                             <CheckoutForm/>
                         </div>
-                        <OrderSummary/>
+                        <OrderSummary isSubmitting={methods.formState.isSubmitting}/>
                     </div>
                 </form>
             </FormProvider>

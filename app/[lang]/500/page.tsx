@@ -1,10 +1,11 @@
+import {LangType} from "@/interface/lang/lang-type";
 
 import { getDictionary } from '@/lib/get-dictionary';
 import ServerErrorPage from './505';
 
 interface ServerErrorProps {
     params: Promise<{
-      lang: "uz" | "ru" | "en" | "tj" | "az";
+      lang: LangType;
     }>;
   }
   

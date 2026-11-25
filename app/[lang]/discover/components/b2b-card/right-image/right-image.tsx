@@ -7,12 +7,15 @@ import {getResponsiveValue, ResponsiveValue} from "@/hooks/get-responsive-value"
 import {getB2bImages} from "@/service/b2b/b2b-upload";
 import {useSession} from "next-auth/react";
 import {MediaInterface} from "@/interface/products-interface/products-interface";
+import {mediaSrc} from "@/lib/media-src";
 
 interface RightImageProps {
     image: StaticImageData;
     size: number;
     top?: ResponsiveValue;
     right?: ResponsiveValue;
+    /** Logo the user has just uploaded (shown instead of the saved one). */
+    uploadedSrc?: string | null;
 }
 
 interface ImageProps {
@@ -20,7 +23,7 @@ interface ImageProps {
     media_file: MediaInterface
 }
 
-export default function RightImage({image, size, top, right,}: RightImageProps): React.ReactElement {
+export default function RightImage({image, size, top, right, uploadedSrc}: RightImageProps): React.ReactElement {
     const {width} = useWindowSize();
     const adjustedTop = getResponsiveValue(top, width);
     const adjustedRight = getResponsiveValue(right, width);
@@ -28,24 +31,22 @@ export default function RightImage({image, size, top, right,}: RightImageProps):
     const {data: session} = useSession();
 
     useEffect(() => {
-        const fetchImages = async () => {
-            const response = await getB2bImages(`${session?.user.serverData?.id}`)
+        const userId = session?.user.serverData?.id;
+        if (!userId) return;
 
-            if (response && response.media_file && response.media_file.filePath) {
-                setImages(response);
-            }
-        }
-
-        fetchImages().then().catch().finally()
+        getB2bImages(userId)
+            .then((response) => {
+                if (response?.media_file?.filePath) setImages(response);
+            })
+            .catch(() => undefined);
     }, [session?.user.serverData?.id])
 
 
-    let imageSrc = null;
-    if (images?.media_file?.filePath) {
-        imageSrc = `${process.env.NEXT_PUBLIC_ADMIN_URL}${images.media_file.filePath}`;
+    let imageSrc = uploadedSrc ?? null;
+    if (!imageSrc && images?.media_file?.filePath) {
+        imageSrc = mediaSrc(images.media_file.filePath);
     }
 
-    console.log(images)
 
 
     return (

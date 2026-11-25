@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { NewsItemInterface } from "@/interface/news-home-page/news";
+import {mediaSrc} from "@/lib/media-src";
 // import {NewsItem} from "@/interface/news-home-page/news";
 
 interface DictionaryProps {
@@ -22,9 +23,9 @@ export const NewsCard: FC<{
     <div
       className={"w-[100%] h-[100%] text-center mb-14 flex flex-col relative"}
     >
-      {newsItem?.image?.filePath && (
+      {newsItem?.image_page?.filePath && (
         <Image
-          src={`${process.env.NEXT_PUBLIC_ADMIN_URL}${newsItem?.image_page?.filePath}`}
+          src={mediaSrc(newsItem?.image_page?.filePath)}
           width={1000}
           height={1000}
           className={"w-96 md:w-full h-[500px] object-cover"}

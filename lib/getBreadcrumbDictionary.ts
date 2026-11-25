@@ -1,4 +1,3 @@
-export const getBreadcrumbDictionary = async (lang: string) => {
-    console.log(lang);
+export const getBreadcrumbDictionary = async () => {
     return import(`@/dictionaries/breadcrumb.json`).then((res) => res.default);
 };

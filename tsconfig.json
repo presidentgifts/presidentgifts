@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./node_modules/@types", "./types"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ],
     "target": "ES2017",
     "lib": [
       "dom",
@@ -30,13 +33,15 @@
     }
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
+    ".next-check/types/**/*.ts",
     ".next/types/**/*.ts",
+    "constants/shop-modal-item.tsx",
+    "next-env.d.ts",
     "svgr.d.ts",
-    "constants/shop-modal-item.tsx"
-, "service/home-service/.service.ts"  ],
+    ".next-prodcheck/types/**/*.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

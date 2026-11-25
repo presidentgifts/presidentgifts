@@ -1,9 +1,10 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { CollectionService } from "@/service/collections-service/all-collections";
 import { CollectionResponse } from "../type";
 import { CollectionItems } from "./collectionItems";
 
 export interface CollectionsProps {
-  lang: "uz" | "ru" | "en";
+  lang: LangType;
   dictionary: {
     category: {
       title: string;
@@ -15,10 +16,9 @@ export interface CollectionsProps {
   };
 }
 
-export async function Collections({ lang ,dictionary}: CollectionsProps) {
+export async function Collections({ dictionary }: CollectionsProps) {
   const CollectionsData: CollectionResponse[] =
     (await CollectionService()) as CollectionResponse[];
-  console.log(lang);
   const ids = CollectionsData.map((item) => item.id);
   return (
     <div className=" mx-auto mt-[100px]">

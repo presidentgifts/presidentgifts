@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import {BreadcrumbDynamic} from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import {BasketLeftSection} from "@/app/[lang]/basket/components/basket-left-section";
 import {BasketRightSection} from "@/app/[lang]/basket/components/basket-right-section";
@@ -5,11 +6,11 @@ import {getDictionary} from "@/lib/get-dictionary";
 
 
 interface BasketPageProps {
-    params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | 'az', category: string }>;
+    params: Promise<{ lang: LangType, category: string }>;
 }
 
 export default async function BasketPage({params}: BasketPageProps) {
-    const HomePageParam: { lang: "uz" | "ru" | "en" | 'tj' | "az", category: string } = await params;
+    const HomePageParam: { lang: LangType, category: string } = await params;
     const dictionary = await getDictionary(HomePageParam.lang);
 
     return (

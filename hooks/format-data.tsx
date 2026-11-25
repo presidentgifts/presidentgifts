@@ -1,4 +1,5 @@
-export function formatDate(dateString: string, lang: "uz" | "ru" | "en" | "tj" | "az") {
+import {LangType} from "@/interface/lang/lang-type";
+export function formatDate(dateString: string, lang: LangType) {
     const locales: Record<string, string> = {
         uz: "uz-UZ",
         ru: "ru-RU",

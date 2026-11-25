@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { MediaFile } from "@/app/[lang]/collections/type";
 
 export interface ShowcaseProps {
@@ -9,7 +10,7 @@ export interface ShowcaseProps {
             button: string;
         };
     },
-    lang: "uz" | "ru" | "en" | "az" | "tj"
+    lang: LangType
 }
 
 

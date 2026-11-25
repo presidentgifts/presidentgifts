@@ -1,4 +1,5 @@
 "use client";
+import {LangType} from "@/interface/lang/lang-type";
 
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -111,7 +112,7 @@ interface FaqsFormProps {
       };
     };
   };
-  lang?: "uz" | "ru" | "en" | "az" | "tj";
+  lang?: LangType;
   showtime?: boolean;
 }
 

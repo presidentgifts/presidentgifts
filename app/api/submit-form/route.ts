@@ -29,7 +29,6 @@ interface AmoCRMLeadResponse {
 export async function POST(request: Request) {
     try {
         const { name, phone }: RequestData = await request.json();
-        console.log('✅ Received form data:', { name, phone });
 
         if (!name || !phone) {
             return NextResponse.json(

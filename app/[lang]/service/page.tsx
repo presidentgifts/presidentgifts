@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import Image from "next/image";
 import { ServiceCard } from "@/app/[lang]/shops/components/service-card/service-card";
@@ -6,7 +7,7 @@ import Pen from "@/public/images/service.webp";
 import { getDictionary } from "@/lib/get-dictionary";
 
 interface NewsPageProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az" }>;
+  params: Promise<{ lang: LangType }>;
 }
 
 export default async function ServicePage({ params }: NewsPageProps) {

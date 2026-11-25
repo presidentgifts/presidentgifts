@@ -1,40 +1,29 @@
-'use client';
+"use client";
 
-import Cookies from 'js-cookie';
+import {getClientCurrency, getClientLocale} from "@/lib/locale-context-client";
 
-type CurrencyCookie = { code: string; name?: string };
+/**
+ * Client-side request to the backend. Goes through the `/api/backend` proxy so
+ * that backend credentials never reach the browser.
+ *
+ * @param url backend path starting with `/api/v1/...`
+ */
+export const fetcherClient = async (url: string, options: RequestInit = {}, currencyOverride?: string) => {
+    const path = url.replace(/^\/api\/v1/, "");
 
-export const fetcherClient = async (
-    url: string,
-    options: RequestInit = {},
-    currencyOverride?: string
-) => {
-    const lang = Cookies.get('lang') || 'en';
-    const authString = btoa(
-        `${process.env.NEXT_PUBLIC_BASIC_ADMIN}:${process.env.NEXT_PUBLIC_BASIC_PASSWORD}`
-    );
-
-    // read cookie just as a default; allow overriding
-    let currency: CurrencyCookie = { code: 'USD', name: 'US Dollar' };
-    const cookie = Cookies.get('currency');
-    if (cookie) {
-        try { currency = JSON.parse(cookie); } catch {}
-    }
-    const currencyCode = currencyOverride || currency.code;
-
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${url}`, {
+    const res = await fetch(`/api/backend${path}`, {
         ...options,
-        method: options.method ?? 'GET',
+        method: options.method ?? "GET",
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Basic ${authString}`,
-            'Accept-Language': lang,
-            'currencyCode': currencyCode,
+            "Content-Type": "application/json",
+            "Accept-Language": getClientLocale(),
+            currencyCode: currencyOverride || getClientCurrency().code,
             ...(options.headers || {}),
         },
-        cache: 'no-store',
+        cache: "no-store",
     });
 
-    if (!res.ok) throw new Error('Request failed');
-    return res.json();
+    if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+    const text = await res.text();
+    return text ? JSON.parse(text) : null;
 };

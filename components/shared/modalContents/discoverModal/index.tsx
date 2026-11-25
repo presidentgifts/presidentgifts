@@ -1,9 +1,10 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { discoverModalItems } from "@/constants/discover-modal-item";
 import Link from "next/link";
 import React from "react";
 
 interface DiscoverModalProps {
-  lang: "uz" | "ru" | "en";
+  lang: LangType;
 }
 
 const DiscoverModalContent = ({ lang }: DiscoverModalProps) => {

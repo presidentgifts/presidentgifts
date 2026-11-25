@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import {BreadcrumbDynamic} from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import {NewsCard} from "@/components/shared/news-card/news-card";
 import {NewsItemInterface} from "@/interface/news-home-page/news";
@@ -7,7 +8,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 
 interface NewsPageProps {
     params: Promise<{
-        lang: "uz" | "ru" | "en" |"tj"|"az";
+        lang: LangType;
         news: string;
     }>;
 }

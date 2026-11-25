@@ -1,4 +1,5 @@
 "use client"
+import {LangType} from "@/interface/lang/lang-type";
 
 import {useEffect, useState} from "react";
 import Image from "next/image";
@@ -42,7 +43,7 @@ interface SupportFormProps {
             };
         };
     };
-    lang?: "uz" | "ru" | "en";
+    lang?: LangType;
     showtime?: boolean;
 }
 

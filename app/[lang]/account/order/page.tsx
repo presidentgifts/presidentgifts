@@ -6,6 +6,8 @@ import {useEffect, useState} from "react";
 import {UserOrderService} from "@/service/order.service/user-order.service";
 import {useSession} from "next-auth/react";
 import {OrderDataInterface} from "@/interface/order-data/order-data";
+import {useUiText} from "@/provider/ui-text-provider";
+import {Skeleton} from "@/components/ui/skeleton";
 
 interface OrderInterface {
     content: OrderDataInterface[],
@@ -18,30 +20,45 @@ interface OrderInterface {
 }
 
 export default function OrderPage() {
-    const [orderData, setOrderData] = useState<OrderInterface>()
-    const {data: session,} = useSession();
+    const t = useUiText().account.orders;
+    const [orderData, setOrderData] = useState<OrderInterface>();
+    const [loading, setLoading] = useState(true);
+    const {data: session, status} = useSession();
+    const customerId = session?.user.serverData?.id;
 
     useEffect(() => {
+        if (status === "loading") return;
+        if (!customerId) {
+            setLoading(false);
+            return;
+        }
+        setLoading(true);
+        UserOrderService(customerId)
+            .then(setOrderData)
+            .catch(() => setOrderData(undefined))
+            .finally(() => setLoading(false));
+    }, [customerId, status]);
 
-        const fetchLang = async () => {
-            const data = await UserOrderService(session?.user.serverData?.id);
-            setOrderData(data);
-        };
-        fetchLang().then().catch().finally();
-
-    }, [session?.user.serverData?.id])
+    const orders = orderData?.content ?? [];
 
     return (
         <div>
-            <AccountTitle text={"Мои заказы"}/>
+            <AccountTitle text={t.title}/>
 
-            <p className="text-primary text-sm font-medium leading-tight mt-3">Вы ранее не делали заказ как
-                зарегистрированный пользователь.</p>
-            <div className={'mt-10'}>
-                {orderData?.content?.map((item: OrderDataInterface) => (
-                    <OrderCard key={item.id} orderData={item}/>
-                ))}
-            </div>
+            {loading ? (
+                <div className="mt-10 space-y-4">
+                    <Skeleton className="h-40 w-full"/>
+                    <Skeleton className="h-40 w-full"/>
+                </div>
+            ) : orders.length === 0 ? (
+                <p className="text-primary text-sm font-medium leading-tight mt-3">{t.empty}</p>
+            ) : (
+                <div className={'mt-10'}>
+                    {orders.map((item) => (
+                        <OrderCard key={item.id} orderData={item}/>
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

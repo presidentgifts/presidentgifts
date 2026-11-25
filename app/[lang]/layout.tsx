@@ -5,13 +5,14 @@ import {LoadingComponent} from "@/components/shared/loading-component/loading-co
 import {Footer} from "@/components/shared/footer/footer";
 import {Navbar} from "@/components/shared/navbar/navbar";
 import localFont from "next/font/local";
-import {InitGeoCookie} from "@/lib/get-userlocation";
 import {Toaster} from "@/components/ui/sonner";
 import AuthSessionProvider from "@/provider/auth-session-provider";
+import {UiTextProvider} from "@/provider/ui-text-provider";
 import Script from "next/script";
 import Image from "next/image";
 import AOSProvider from "@/constants/AOSProvider";
 import { getDictionary } from "@/lib/get-dictionary";
+import {Locale, normalizeLocale} from "@/lib/i18n-config";
 
 const microsoftHimalaya = localFont({
     src: "../fonts/microsoft-himalaya.ttf",
@@ -25,7 +26,7 @@ const manropeFont = localFont({
 
 interface RootLayoutProps {
     children: React.ReactNode;
-    params: Promise<{ lang: "uz" | "ru" | "en" }>;
+    params: Promise<{ lang: string }>;
 }
 
 export const metadata: Metadata = {
@@ -44,11 +45,11 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({children, params}: RootLayoutProps) {
-    const language: { lang: "en" | "ru" | "uz" } = await params;
-    const dictionary = await getDictionary(language.lang);
+    const lang: Locale = normalizeLocale((await params).lang);
+    const dictionary = await getDictionary(lang);
 
     return (
-        <html suppressHydrationWarning={true} lang={language.lang}>
+        <html suppressHydrationWarning={true} lang={lang}>
         <head>
             {/* Favicon & Metadata */}
             <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96"/>
@@ -57,7 +58,6 @@ export default async function RootLayout({children, params}: RootLayoutProps) {
             <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
             <meta name="apple-mobile-web-app-title" content="President"/>
             <link rel="manifest" href="/site.webmanifest"/>
-            <title>President</title>
 
             {/* Google Tag Manager */}
             <Script id="gtm-head" strategy="afterInteractive">
@@ -141,16 +141,17 @@ export default async function RootLayout({children, params}: RootLayoutProps) {
         </noscript>
 
         <AuthSessionProvider>
+        <UiTextProvider texts={dictionary.ui}>
         <AOSProvider />
             <Suspense fallback={<LoadingComponent/>}>
                 <header>
-                    <Navbar lang={language.lang} dictionary={dictionary}/>
+                    <Navbar lang={lang} dictionary={dictionary}/>
                 </header>
                 <main>{children}</main>
-                <Footer lang={language.lang}/>
+                <Footer lang={lang}/>
                 <Toaster/>
             </Suspense>
-            <InitGeoCookie/>
+        </UiTextProvider>
         </AuthSessionProvider>
         </body>
         </html>

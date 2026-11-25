@@ -6,6 +6,7 @@ import {Button} from "@/components/ui/button";
 import FavoriteCard from "@/components/shared/favorite-card/favorite-card";
 import Link from "next/link";
 import {Heart} from "lucide-react";
+import {formatText, useUiText} from "@/provider/ui-text-provider";
 
 interface FavoriteProps{
     dictionary:{
@@ -17,13 +18,13 @@ interface FavoriteProps{
 
 export default function FavoritePage({dictionary}:FavoriteProps) {
     const {items, removeFromWishlist} = useWishlistStore();
+    const t = useUiText().account.favorites;
 
     return (
         <div>
-            <AccountTitle text={"Мой любимый"}/>
+            <AccountTitle text={t.title}/>
             {items.length > 0 && (<p className="text-primary text-sm font-medium leading-tight mt-3">
-                {/* You have {items.length} {items.length === 1 ? 'item' : 'items'} in your Wishlist */}
-                У вас {items.length} {items.length === 1 ? 'товар' : 'товара'} в списке желаемого.
+                {formatText(t.count, {count: items.length})}
             </p>)}
 
             {items.length === 0 ? (
@@ -32,12 +33,11 @@ export default function FavoritePage({dictionary}:FavoriteProps) {
                         <Heart className="w-12 h-12 mx-auto text-gray-400"/>
                     </div>
                     <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                        Нажмите на значок «Избранное» рядом с товаром, чтобы добавить его в избранное.
-                        Вы можете просматривать, покупать и делиться своим избранным в любое время.
+                        {t.emptyText}
                     </p>
-                    <Link href="/shops/new">
+                    <Link href="/shops/news">
                         <Button variant="default">
-                            Продолжить покупки
+                            {t.continueShopping}
                         </Button>
                     </Link>
                 </div>

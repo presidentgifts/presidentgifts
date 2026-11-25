@@ -1,4 +1,5 @@
 "use client";
+import {LangType} from "@/interface/lang/lang-type";
 import { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import { ProductsInterface } from "@/interface/products-interface/products-interface";
@@ -6,10 +7,11 @@ import Link from "next/link";
 import {formatCurrency} from "@/hooks/formatPrice";
 import {Heart} from "lucide-react";
 import {useWishlistStore} from "@/lib/set-wishlist.storage";
+import {mediaSrc} from "@/lib/media-src";
 
 export const CollectionCard: FC<{
   newsItem: ProductsInterface;
-  lang?: "uz" | "ru" | "en";
+  lang?: LangType;
 }> = ({ newsItem }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
@@ -55,7 +57,7 @@ export const CollectionCard: FC<{
           {newsItem.media && newsItem.media.map((img, index) => (
             <Image
               key={index}
-              src={`${process.env.NEXT_PUBLIC_ADMIN_URL}${img.filePath}`}
+              src={mediaSrc(img.filePath)}
               alt={newsItem.name || "COLLECTION IMAGE"}
               fill
               className={`object-contain transition-opacity duration-700 ${

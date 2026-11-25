@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import React from "react";
 import CommonHeader from "../components/common-header";
@@ -11,7 +12,7 @@ import Corporative3 from "@/public/images/CorporateGifts3.jpg";
 import Corporative4 from "@/public/images/CorporateGifts4.webp";
 
 interface CorporateGiftsPageProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az"; category: string }>;
+  params: Promise<{ lang: LangType; category: string }>;
 }
 
 export default async function CorporateGifts({ params }: CorporateGiftsPageProps) {

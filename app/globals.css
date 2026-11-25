@@ -8,6 +8,10 @@
     scroll-behavior: smooth;
 }
 
+@keyframes shimmer {
+    100% { transform: translateX(100%); }
+}
+
 html[lang="ru"] .showcase-title {
     font-size: 2.5rem; 
     max-width: 580px;

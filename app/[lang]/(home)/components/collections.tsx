@@ -13,6 +13,7 @@ import { CollectionResponse } from "../../collections/type";
 import { CollectionCard } from "@/components/shared/collection-card/collection-card";
 import { ProductsInterface } from "@/interface/products-interface/products-interface";
 import { CollectionService } from "@/service/collections-service/all-collections";
+import {mediaSrc} from "@/lib/media-src";
 export interface CollectionsProps {
   dictionary: {
     collections: {
@@ -26,22 +27,25 @@ export async function Collections({ dictionary }: CollectionsProps) {
   const CollectionsData: CollectionResponse[] =  (await CollectionService()) as CollectionResponse[];
    
 
-  const Collection = CollectionsData.filter(
-    (item) => item.is_main_page
-  )[0];
+  const Collection =
+    CollectionsData?.find((item) => item.is_main_page) ?? CollectionsData?.[0];
 
-  
-  
+  if (!Collection || !Collection.products?.length) return null;
+
+  const coverImage = Collection.mediaFiles?.[0]?.filePath;
+
   return (
     <div className="flex flex-col md:flex-row justify-between items-center gap-8 w-full mt-12">
       <div className="w-full md:w-[40%] flex justify-center">
-        <Image
-          src={`${process.env.NEXT_PUBLIC_ADMIN_URL}${Collection.mediaFiles[0].filePath}`}
-          alt="Collection Left Image"
-          width={1000}
-          height={500}
-          className="object-contain w-full"
-        />
+        {coverImage && (
+          <Image
+            src={mediaSrc(coverImage)}
+            alt={Collection.name}
+            width={1000}
+            height={500}
+            className="object-contain w-full"
+          />
+        )}
       </div>
       <div className="w-full container  md:w-[60%]">
         <SectionTitle

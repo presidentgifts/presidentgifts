@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import Image from "next/image";
 import ServicesImage from "@/public/images/Контакты.webp";
@@ -5,11 +6,11 @@ import { getDictionary } from "@/lib/get-dictionary";
 import FaqsForm from "../shops/components/faqs-form/faqs-form";
 
 interface ContactPageProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az"; category: string }>;
+  params: Promise<{ lang: LangType; category: string }>;
 }
 export default async function FaqsPage({ params }: ContactPageProps) {
   const ContactPageParam: {
-    lang: "uz" | "ru" | "en" | "tj" | "az";
+    lang: LangType;
     category: string;
   } = await params;
   const dictionary = await getDictionary(ContactPageParam.lang);

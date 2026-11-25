@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import Image from "next/image";
 import React from "react";
@@ -9,7 +10,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 
 interface LocationProps {
   params: Promise<{
-    lang: "uz" | "ru" | "en" | "tj" | "az";
+    lang: LangType;
     news: string;
   }>;
 }

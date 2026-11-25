@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import React from "react";
 
 import CustomAccordion from "@/components/shared/custom-accordion/custom-accordion";
@@ -7,7 +8,7 @@ const InstrumentAccordion = ({
   lang,
 }: {
   data: tabsType[];
-  lang: "uz" | "ru" | "en" | "tj" | "az";
+  lang: LangType;
 }) => {
   return (
     <>

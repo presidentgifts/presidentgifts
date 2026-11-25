@@ -7,6 +7,10 @@ import { useWishlistStore } from "@/lib/set-wishlist.storage";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {formatCurrency} from "@/hooks/formatPrice";
+import { useBasketStore } from "@/lib/set-basket.storage";
+import { toBasketItem } from "@/lib/basket-item";
+import { getCurrencyCode, getPriceFor } from "@/hooks/price-helpers";
+import {mediaSrc} from "@/lib/media-src";
 
 interface ProductsCardProps {
   productData: ProductsInterface;
@@ -29,6 +33,9 @@ export const ProductsCard = ({
 }: ProductsCardProps) => {
   const { isInWishlist, toggleWishlist } = useWishlistStore();
   const isLiked = isInWishlist(productData.id);
+  const { addToBasket, isInBasket } = useBasketStore();
+  const inBasket = isInBasket(productData.id);
+  const price = productData.locale_price ?? getPriceFor(productData.prices, getCurrencyCode());
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [hovered, setHovered] = useState(false);
@@ -36,7 +43,7 @@ export const ProductsCard = ({
 
   const images =
     productData.media?.map(
-      (media) => `${process.env.NEXT_PUBLIC_ADMIN_URL}${media.filePath}`
+      (media) => mediaSrc(media.filePath)
     ) || [];
 
   useEffect(() => {
@@ -70,6 +77,8 @@ export const ProductsCard = ({
       onMouseLeave={() => setHovered(false)}
     >
       <button
+        type="button"
+        aria-label="wishlist"
         onClick={() => toggleWishlist(productData.id)}
         className="absolute right-3 top-3 z-40 text-gray-500 cursor-pointer hover:text-primary transition"
       >
@@ -98,7 +107,7 @@ export const ProductsCard = ({
       </Link>
 
       <Link  href={`/detail/${productData.id}`} className="flex flex-col justify-between h-full p-3">
-        {productData.meta._new_product && (
+        {productData.meta?._new_product && (
           <span className="mb-3 w-fit rounded border px-2 py-0.5 text-xs font-medium text-gray-700">
             {dictionary.category.new}
           </span>
@@ -108,13 +117,22 @@ export const ProductsCard = ({
         </h3>
         <div className="flex justify-between items-center ">
           <p className="text-sm text-gray-500">
-            {formatCurrency(productData.locale_price)}
+            {price ? formatCurrency(price) : "—"}
           </p>
-          <button className="cursor-pointer">
+          <button
+            type="button"
+            aria-label="add to cart"
+            className="cursor-pointer"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              addToBasket(toBasketItem(productData));
+            }}
+          >
             <ShoppingCart
               width={24}
               height={24}
-              className="text-primary !hover:text-zinc-300 duration-200 mr-1"
+              className={`duration-200 mr-1 ${inBasket ? "text-gold fill-current" : "text-primary"}`}
             />
           </button>
         </div>

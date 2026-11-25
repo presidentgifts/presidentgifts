@@ -3,6 +3,8 @@
 import {usePathname} from "next/navigation";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
+import {isLocale} from "@/lib/i18n-config";
+import {setLangCookie} from "@/lib/locale-context-client";
 import {Check} from "lucide-react";
 import {LanguageType} from "@/interface/language&country-type/language-type";
 
@@ -21,16 +23,14 @@ export default function LocaleSwitcher({languages}: Props) {
 
     useEffect(() => {
         const cookieLocale = Cookies.get("lang")?.toLowerCase();
-        if (cookieLocale && ["uz", "ru", "en", 'tj', 'az'].includes(cookieLocale)) {
-            
+        if (isLocale(cookieLocale)) {
             setActiveLocale(cookieLocale);
-            
         } else {
             const segments = pathName.split("/");
             const urlLocale = segments[1]?.toLowerCase();
-            if (["uz", "ru", "en", "tj", "az"].includes(urlLocale)) {
+            if (isLocale(urlLocale)) {
                 setActiveLocale(urlLocale);
-                Cookies.set("lang", urlLocale, {expires: 365});
+                setLangCookie(urlLocale);
             }
         }
     }, [pathName]);
@@ -43,7 +43,8 @@ export default function LocaleSwitcher({languages}: Props) {
 
     const handleLocaleChange = (locale: string) => {
         const lower = locale.toLowerCase();
-        Cookies.set("lang", lower, {expires: 365});
+        if (!isLocale(lower)) return;
+        setLangCookie(lower);
         setActiveLocale(lower);
         window.location.href = redirectedPathName(lower);
     };

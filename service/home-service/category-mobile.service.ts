@@ -1,30 +1,9 @@
 "use client";
 
 import {fetcherClient} from "@/lib/fetcher-client";
-import Cookies from "js-cookie";
-
-interface CountryCookie {
-    name: string;
-    code: string;
-}
+import {getClientLocaleContext} from "@/lib/locale-context-client";
 
 export const getCategoryModal = async () => {
-    const countryString = Cookies.get("country");
-    const langString = Cookies.get("lang")?.toUpperCase();
-    let countryCode = null;
-
-    if (countryString) {
-        try {
-            const parsed: CountryCookie = JSON.parse(countryString);
-            countryCode = parsed.code;
-        } catch (error) {
-            console.warn("country cookie parsing error:", error);
-        }
-    }
-
-    if (countryCode) {
-        // return fetcherClient(`/api/v1/category/all_by_language?languageCode=${langString}&countryCode=${countryCode}&withChildren=false`);
-        return fetcherClient(`/api/v1/category/root_by_locale?languageCode=${langString}&countryCode=${countryCode}`);
-             }
-            
-}
+    const {langCode, countryCode} = getClientLocaleContext();
+    return fetcherClient(`/api/v1/category/root_by_locale?languageCode=${langCode}&countryCode=${countryCode}`);
+};

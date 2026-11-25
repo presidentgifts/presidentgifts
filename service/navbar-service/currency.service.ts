@@ -1,38 +1,27 @@
 "use client";
 
 import {fetcherClient} from "@/lib/fetcher-client";
-import Cookies from "js-cookie";
 import {CurrencyType} from "@/interface/currency-type/currency-type";
+import {getClientCountryCode, getClientCurrency, setCurrencyCookie} from "@/lib/locale-context-client";
 
-interface CountryCookie {
-    name: string;
-    code: string;
-}
+/**
+ * Currencies available in the visitor's country. If the currently selected
+ * currency isn't offered there, switches to the country's default currency.
+ * Returns `changed: true` when the cookie was updated (page data must be refreshed).
+ */
+export const getAllCurrency = async (): Promise<{ currencies: CurrencyType[]; changed: boolean }> => {
+    const currencies: CurrencyType[] = (await fetcherClient(
+        `/api/v1/currency/by_country?countryCode=${getClientCountryCode()}`
+    )) ?? [];
 
-export const getAllCurrency = async () => {
-    const countryString = Cookies.get("country");
-    let countryCode = null;
+    const selected = getClientCurrency();
+    const isAvailable = currencies.some((c) => c.code === selected.code);
+    const defaultCurrency = currencies.find((c) => c.default_currency) ?? currencies[0];
 
-    if (countryString) {
-        try {
-            const parsed: CountryCookie = JSON.parse(countryString);
-            countryCode = parsed.code;
-        } catch (error) {
-            console.warn("country cookie parsing error:", error);
-        }
+    if (!isAvailable && defaultCurrency) {
+        setCurrencyCookie({code: defaultCurrency.code, name: defaultCurrency.name});
+        return {currencies, changed: true};
     }
 
-    if (countryCode) {
-        const currencies: CurrencyType[] = await fetcherClient(`/api/v1/currency/by_country?countryCode=${countryCode}`);
-        const defaultCurrency = currencies.find((currency) => currency.default_currency);
-
-        if (defaultCurrency) {
-            Cookies.set("currency", JSON.stringify({
-                code: defaultCurrency.code,
-                name: defaultCurrency.name,
-            }));
-        }
-
-        return currencies;
-    }
+    return {currencies, changed: false};
 };

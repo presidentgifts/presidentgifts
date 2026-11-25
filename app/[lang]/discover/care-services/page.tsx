@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import Image from "next/image";
 import React from "react";
 import Pen from "@/public/images/care-service.webp";
@@ -8,7 +9,7 @@ import IconComponent from "@/components/icon/icon-view";
 import { getDictionary } from "@/lib/get-dictionary";
 
 interface CareAndServicesProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az" }>;
+  params: Promise<{ lang: LangType }>;
 }
 
 export default async function CareAndServices({

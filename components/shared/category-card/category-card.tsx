@@ -1,10 +1,12 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { CategoryInterface } from "@/interface/category-type/category-interface";
 import Image from "next/image";
 import { FC } from "react";
+import {mediaSrc} from "@/lib/media-src";
 
 export const CategoryCard: FC<{
     category: CategoryInterface;
-    lang: "uz" | "ru" | "en" | "tj" | "az";
+    lang: LangType;
 }> = ({category}) => {
     return (
         <div className="cursor-pointer flex flex-col items-center">
@@ -12,7 +14,7 @@ export const CategoryCard: FC<{
                 <div className="relative w-[340px] md:h-[220px] h-[160px]  overflow-hidden">
                     <Image
                         alt={category.name}
-                        src={`${process.env.NEXT_PUBLIC_ADMIN_URL}${category?.mediaFiles[0]?.filePath}`}
+                        src={mediaSrc(category?.mediaFiles[0]?.filePath)}
                         fill
                         className="md:object-cover object-contain transition-transform duration-300 hover:scale-105 rounded"
                     />

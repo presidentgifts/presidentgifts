@@ -2,6 +2,8 @@ export const navbarLinks = [
     {
         id: 1, name: {
             'en': "Shop",
+            tj: "Магоза",
+            az: "Mağaza",
             'ru': 'Коллекции',
             "uz": "Kolleksiyalar"
         },
@@ -10,8 +12,10 @@ export const navbarLinks = [
     {
         id: 2, name: {
             "en": "Discover",
+            tj: "Бештар бидонед",
+            az: "Daha çox kəşf et",
             "ru": "Узнать больше",
-            'uz': 'Ko\'proq bilish\n'
+            'uz': "Ko'proq bilish"
         },
         showing : true,
     },
@@ -25,7 +29,9 @@ export const navbarContent = [
         name: {
             uz: "Aloqa",
             ru: "Контакты",
-            en: "Contacts us"
+            en: "Contacts us",
+            tj: "Тамос",
+            az: "Əlaqə"
         }
     },
     {
@@ -34,7 +40,9 @@ export const navbarContent = [
         name: {
             uz: "Korporativ sovg'alar",
             ru: "Корпоративные подарки",
-            en: "Corporate gifts"
+            en: "Corporate gifts",
+            tj: "Тӯҳфаҳои корпоративӣ",
+            az: "Korporativ hədiyyələr"
         }
     },
     {
@@ -43,7 +51,9 @@ export const navbarContent = [
         name: {
             uz: "Filiallar joylashuvi",
             ru: "Локации филиалов",
-            en: "Branch locations"
+            en: "Branch locations",
+            tj: "Ҷойгиршавии филиалҳо",
+            az: "Filialların ünvanları"
         }
     },
 ];

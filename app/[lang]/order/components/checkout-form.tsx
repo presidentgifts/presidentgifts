@@ -5,12 +5,13 @@ import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/comp
 import { Input } from "@/components/ui/input";
 import { useFormContext } from "react-hook-form";
 import { useSession } from "next-auth/react";
+import { useUiText } from "@/provider/ui-text-provider";
 
 export default function CheckoutForm() {
   const { control, resetField } = useFormContext();
   const { data: session } = useSession();
+  const t = useUiText().order;
 
-  // Foydalanuvchi login bo‘lsa, userInformation.name va userInformation.secondment maydonlarini yangilash
   useEffect(() => {
     if (session?.user) {
       const fullName =
@@ -18,7 +19,8 @@ export default function CheckoutForm() {
           ? session.user.serverData?.full_name
           : session.user.name;
       if (fullName) {
-        const [firstName = "", secondName = ""] = fullName.split(" ");
+        const [firstName = "", ...rest] = fullName.trim().split(/\s+/);
+        const secondName = rest.join(" ");
         resetField("userInformation.name", {
           defaultValue: firstName.trim() || "",
         });
@@ -31,7 +33,7 @@ export default function CheckoutForm() {
 
   return (
     <div className="p-6 rounded-[4px] border mt-4">
-      <h2 className="text-lg font-semibold mb-4">Информация о получателе</h2>
+      <h2 className="text-lg font-semibold mb-4">{t.recipientTitle}</h2>
 
       <div className="space-y-5">
         <FormField
@@ -39,9 +41,9 @@ export default function CheckoutForm() {
           name="userInformation.name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Имя</FormLabel>
+              <FormLabel>{t.firstName}</FormLabel>
               <FormControl>
-                <Input placeholder="Введите имя" {...field} />
+                <Input placeholder={t.firstNamePlaceholder} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -52,9 +54,9 @@ export default function CheckoutForm() {
           name="userInformation.secondment"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Фамилия</FormLabel>
+              <FormLabel>{t.lastName}</FormLabel>
               <FormControl>
-                <Input placeholder="Введите фамилию" {...field} />
+                <Input placeholder={t.lastNamePlaceholder} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -65,9 +67,9 @@ export default function CheckoutForm() {
           name="userInformation.phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Номер телефона</FormLabel>
+              <FormLabel>{t.phone}</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your number.." {...field} />
+                <Input type="tel" placeholder={t.phonePlaceholder} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -78,9 +80,9 @@ export default function CheckoutForm() {
           name="userInformation.secondPhone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Дополнительный номер (необязательно)</FormLabel>
+              <FormLabel>{t.secondPhone}</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your second number.." {...field} />
+                <Input type="tel" placeholder={t.phonePlaceholder} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -15,10 +15,14 @@ import Google from "@/public/svg/googole.svg"
 import {signIn} from "next-auth/react"
 import {createUserAndSignIn} from "@/lib/auth"
 import {useRouter} from "next/navigation"
+import {useUiText} from "@/provider/ui-text-provider"
+import {toast} from "sonner"
 
 type RegisterFormValues = z.infer<typeof RegisterSchema>
 
 export default function RegisterForm() {
+    const ui = useUiText().auth
+    const t = ui.register
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -46,10 +50,10 @@ export default function RegisterForm() {
 
         setLoading(false)
 
-        if (res?.success) {
+        if (res.success) {
             router.push("/")
         } else {
-            console.error("Register error:", res?.error || "Unknown error")
+            toast.error(res.error === "network" ? ui.login.network : t.error)
         }
     }
 
@@ -57,8 +61,8 @@ export default function RegisterForm() {
         <div className="min-h-screen flex items-center justify-center px-4 bg-white">
             <div className="w-full max-w-sm space-y-6">
                 <div className="text-center space-y-1">
-                    <h1 className="text-3xl font-semibold text-gray-900">Create an Account</h1>
-                    <p className="text-sm text-gray-500">Please fill in the form to register</p>
+                    <h1 className="text-3xl font-semibold text-gray-900">{t.title}</h1>
+                    <p className="text-sm text-gray-500">{t.subtitle}</p>
                 </div>
 
                 <Form {...form}>
@@ -68,9 +72,9 @@ export default function RegisterForm() {
                             name="fullName"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Full Name</FormLabel>
+                                    <FormLabel>{t.fullName}</FormLabel>
                                     <FormControl>
-                                        <Input type="text" placeholder="Your full name" {...field} />
+                                        <Input type="text" placeholder={t.fullNamePlaceholder} {...field} />
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
@@ -82,7 +86,7 @@ export default function RegisterForm() {
                             name="email"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel>{ui.login.email}</FormLabel>
                                     <FormControl>
                                         <Input type="email" placeholder="you@example.com" {...field} />
                                     </FormControl>
@@ -96,7 +100,7 @@ export default function RegisterForm() {
                             name="password"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Password</FormLabel>
+                                    <FormLabel>{ui.login.password}</FormLabel>
                                     <div className="relative">
                                         <FormControl>
                                             <Input
@@ -124,7 +128,7 @@ export default function RegisterForm() {
                             name="confirmPassword"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Confirm Password</FormLabel>
+                                    <FormLabel>{t.confirmPassword}</FormLabel>
                                     <div className="relative">
                                         <FormControl>
                                             <Input
@@ -148,7 +152,7 @@ export default function RegisterForm() {
                         />
 
                         <Button type="submit" className="w-full" disabled={loading}>
-                            {loading ? "Creating..." : "Sign up"}
+                            {loading ? t.creating : t.submit}
                         </Button>
 
                         <Button
@@ -158,13 +162,13 @@ export default function RegisterForm() {
                             className="w-full flex items-center justify-center gap-2"
                         >
                             <Image src={Google} alt={"Google Logo"} width={20} height={20} className="size-4"/>
-                            Continue with Google
+                            {ui.login.google}
                         </Button>
 
                         <div className="text-center text-sm text-gray-500">
-                            Already have an account?
+                            {t.haveAccount}{" "}
                             <Link href="/auth/sign-in" className="text-gray-800 hover:underline">
-                                Login
+                                {t.login}
                             </Link>
                         </div>
                     </form>

@@ -23,7 +23,6 @@
     "title": "News",
     "newArrival": "coming soon"
   },
-
   "productVideos": {
     "title": "Product Videos"
   },
@@ -75,7 +74,6 @@
       "link": "Privacy Policy"
     }
   },
-
   "location": {
     "title": "Branches",
     "text": "Addresses"
@@ -110,7 +108,6 @@
     "title": "Collections",
     "newArrival": "View collection"
   },
-
   "story": {
     "story": "STORY"
   },
@@ -122,7 +119,6 @@
     "infoText1": "Today, President Business Gift is not just a store, but a leader in the field of premium gifts for businessmen and executives. We offer a wide range of exclusive wristwatches, handcrafted leather goods, gift sets with custom engraving, VIP accessories, business notebooks, fountain pens, and souvenirs with a national touch.",
     "infoText2": "We are rapidly expanding our presence and confidently entering new markets. We do not stop at what we have achieved — each day, the brand 'President Business Gifts' becomes more and more recognizable. Soon, the whole world will know about us."
   },
-
   "category": {
     "title": "Categories",
     "new": "New Arrival",
@@ -177,7 +173,6 @@
     "maintext": "At President Business Gifts, we don't just create gifts — we create values. Each product goes through a journey from idea to perfect execution under the supervision of our team.\nWe design everything ourselves, select premium materials, and control every step of production.",
     "title": "Honoring the Minerva Legacy",
     "rightSideTitle": "Craftsmanship in Every Detail",
-
     "craftsmanship": {
       "productType": "Craftsmanship",
       "description": "Aesthetic and technical excellence",
@@ -319,7 +314,6 @@
     "total": "Total",
     "description_unavailable": "Description unavailable",
     "shoppingCart": "Shopping Cart",
-
     "order_details": "Order details",
     "product_quantity": "Product quantity",
     "product_prices": "Product prices",
@@ -345,5 +339,185 @@
     "no_products": "No products found",
     "product_types": "Product types",
     "close": "Close"
+  },
+  "ui": {
+    "common": {
+      "pcs": "pcs",
+      "save": "Save",
+      "yes": "Yes",
+      "no": "No",
+      "loading": "Loading...",
+      "notAvailable": "This feature will be available soon."
+    },
+    "product": {
+      "addToCart": "Add to cart",
+      "goToCart": "Go to cart →",
+      "deliveryNote": "We strive to deliver your order as quickly and conveniently as possible.",
+      "details": "Details",
+      "shareUnsupported": "Sharing is not supported on this device.",
+      "linkCopied": "Link copied"
+    },
+    "order": {
+      "title": "Checkout",
+      "createdAt": "Created",
+      "deliveryTitle": "Delivery method and address",
+      "addressLabel": "Where should we deliver the order?",
+      "addressPlaceholder": "Address",
+      "addressHint": "Enter the address and mark it on the map",
+      "mapLabel": "Location on the map",
+      "mapButton": "Mark on the map",
+      "mapDialogTitle": "Choose a point on the map",
+      "mapDialogDescription": "Click the place on the map to select the address.",
+      "saveLocation": "Save location",
+      "orderedProducts": "Ordered products",
+      "sku": "SKU",
+      "recipientTitle": "Recipient information",
+      "firstName": "First name",
+      "firstNamePlaceholder": "Enter first name",
+      "lastName": "Last name",
+      "lastNamePlaceholder": "Enter last name",
+      "phone": "Phone number",
+      "phonePlaceholder": "+998 90 123 45 67",
+      "secondPhone": "Additional number (optional)",
+      "summaryTitle": "Your order details",
+      "quantity": "Number of items",
+      "productsPrice": "Products price",
+      "total": "Total",
+      "submit": "Place order",
+      "submitting": "Sending...",
+      "error": "Could not place the order. Please try again.",
+      "success": {
+        "title": "Order placed successfully!",
+        "text": "Thank you for your order! We will contact you shortly to confirm the details.",
+        "home": "Go to home page",
+        "account": "Go to my account"
+      },
+      "validation": {
+        "addressRequired": "Address is required",
+        "chooseOnMap": "Please choose the location on the map",
+        "nameMin": "At least 2 characters",
+        "nameMax": "Too long",
+        "phoneInvalid": "Enter a valid phone number, e.g. +998901234567",
+        "secondPhoneInvalid": "Enter a valid phone number or leave it empty"
+      }
+    },
+    "account": {
+      "title": "My account",
+      "details": "Account details",
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "nav": {
+        "details": "Account details",
+        "favorites": "Favorites",
+        "orders": "Orders",
+        "changePassword": "Change password",
+        "changeEmail": "Change email",
+        "logout": "Log out"
+      },
+      "logoutConfirm": "Are you sure you want to log out?",
+      "orders": {
+        "title": "My orders",
+        "empty": "You haven't placed any orders yet.",
+        "orderId": "Order ID",
+        "status": "Order status",
+        "createdAt": "Order created",
+        "address": "Address",
+        "quantity": "Number of items",
+        "total": "Total",
+        "showProducts": "Show products",
+        "hide": "Hide",
+        "viewItem": "View item"
+      },
+      "favorites": {
+        "title": "My favorites",
+        "count": "Items in your wishlist: {count}",
+        "emptyText": "Tap the heart icon next to a product to add it to your favorites. You can view, buy and share your favorites at any time.",
+        "continueShopping": "Continue shopping"
+      },
+      "changePassword": {
+        "title": "Change password",
+        "current": "Current password",
+        "currentPlaceholder": "Enter current password",
+        "new": "New password",
+        "newPlaceholder": "Enter new password",
+        "confirm": "Confirm new password",
+        "confirmPlaceholder": "Repeat new password"
+      },
+      "changeEmail": {
+        "title": "Change email",
+        "current": "Current email",
+        "new": "New email",
+        "newPlaceholder": "Enter new email",
+        "confirm": "Confirm new email",
+        "confirmPlaceholder": "Repeat new email"
+      }
+    },
+    "auth": {
+      "login": {
+        "title": "Login",
+        "subtitle": "Welcome back! Please log in to your account",
+        "email": "Email",
+        "emailPlaceholder": "Enter your email",
+        "password": "Password",
+        "passwordPlaceholder": "Enter your password",
+        "forgot": "Forgot password?",
+        "submit": "Log in",
+        "google": "Continue with Google",
+        "noAccount": "Don't have an account?",
+        "signUp": "Sign up",
+        "invalid": "Incorrect email or password",
+        "network": "Network error, please try again"
+      },
+      "register": {
+        "title": "Create an account",
+        "subtitle": "Please fill in the form to register",
+        "fullName": "Full name",
+        "fullNamePlaceholder": "Your full name",
+        "submit": "Sign up",
+        "creating": "Creating...",
+        "haveAccount": "Already have an account?",
+        "login": "Log in",
+        "error": "Registration failed. This email may already be registered.",
+        "confirmPassword": "Confirm password"
+      },
+      "forgot": {
+        "title": "Forgot your password?",
+        "description": "Enter the email address of your President account and we will send you a link to create a new password. The link is valid for 24 hours.",
+        "submit": "Send"
+      }
+    },
+    "userMenu": {
+      "benefits": "Unlock your President benefits",
+      "createAccount": "Create an account",
+      "login": "Log in",
+      "profile": "Profile",
+      "logout": "Log out"
+    },
+    "b2b": {
+      "title": "Try your logo on our products",
+      "description": "Upload your company logo and instantly see how it looks on premium gifts — clutches, bags, card holders and other items.",
+      "authErrorTitle": "Authorization required",
+      "authErrorDesc": "Please log in before uploading a file.",
+      "uploadHint": "Please upload your logo (PNG, less than 3MB).",
+      "chooseFile": "Choose file",
+      "noFile": "No file selected",
+      "uploading": "Uploading...",
+      "tooLarge": "The file must be smaller than 3MB.",
+      "uploadError": "Could not process the image. Please try again.",
+      "clutch": {
+        "title": "Clutch",
+        "desc": "Want to see how your logo will look on a clutch? Upload your logo and try it right now!"
+      },
+      "bag": {
+        "title": "Bag",
+        "desc": "Imagine a bag with your brand's logo. Want to see the result? Try it right now!"
+      },
+      "watch": {
+        "title": "Watch",
+        "desc": "We put your brand's logo even on the inside of wristwatches — delicate and precise work. Be sure to try it!"
+      }
+    }
   }
 }

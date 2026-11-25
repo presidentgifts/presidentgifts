@@ -13,10 +13,12 @@ import Google from "@/public/svg/googole.svg"
 import {LoginSchema} from "@/interface/auth-schema/login-schema";
 import Image from "next/image";
 import {signIn} from "next-auth/react";
+import {useUiText} from "@/provider/ui-text-provider";
 
 type LoginFormValues = z.infer<typeof LoginSchema>
 
 export default function LoginForm() {
+    const t = useUiText().auth.login
     const [showPassword, setShowPassword] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState("")
@@ -41,13 +43,13 @@ export default function LoginForm() {
             })
 
             if (result?.error) {
-                setError("Email yoki parol noto'g'ri")
+                setError(t.invalid)
 
             } else if (result?.ok) {
                 window.location.href = "/"
             }
         } catch {
-            setError("Tarmoq xatosi yuz berdi",)
+            setError(t.network)
         } finally {
             setIsLoading(false)
         }
@@ -58,8 +60,8 @@ export default function LoginForm() {
         <div className="min-h-screen flex items-center justify-center px-2 bg-white">
             <div className="w-full max-w-sm space-y-6">
                 <div className="text-center space-y-2">
-                    <h1 className="text-2xl font-semibold">Login</h1>
-                    <p className="text-sm text-gray-500">Welcome back! Please login to your account</p>
+                    <h1 className="text-2xl font-semibold">{t.title}</h1>
+                    <p className="text-sm text-gray-500">{t.subtitle}</p>
                 </div>
 
                 <Form {...form}>
@@ -75,9 +77,9 @@ export default function LoginForm() {
                             name="email"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Email</FormLabel>
+                                    <FormLabel>{t.email}</FormLabel>
                                     <FormControl>
-                                        <Input type="email" placeholder="Enter your email" {...field} />
+                                        <Input type="email" placeholder={t.emailPlaceholder} {...field} />
                                     </FormControl>
                                     <FormMessage/>
                                 </FormItem>
@@ -88,12 +90,12 @@ export default function LoginForm() {
                             name="password"
                             render={({field}) => (
                                 <FormItem>
-                                    <FormLabel>Password</FormLabel>
+                                    <FormLabel>{t.password}</FormLabel>
                                     <div className="relative">
                                         <FormControl>
                                             <Input
                                                 type={showPassword ? "text" : "password"}
-                                                placeholder="Enter your password"
+                                                placeholder={t.passwordPlaceholder}
                                                 className="pr-10"
                                                 {...field}
                                             />
@@ -112,7 +114,7 @@ export default function LoginForm() {
                         />
                         <div className="text-right text-sm">
                             <Link href="/auth/forget-password" className="text-gray-600 hover:underline">
-                                Forgot password?
+                                {t.forgot}
                             </Link>
                         </div>
                         <Button
@@ -121,7 +123,7 @@ export default function LoginForm() {
                             className={"w-full"}
                             disabled={isLoading}
                         >
-                            {isLoading ? "Yuklanmoqda..." : "Login"}
+                            {t.submit}
                         </Button>
                         <Button
                             variant="outline"
@@ -131,11 +133,11 @@ export default function LoginForm() {
                             disabled={isLoading}
                         >
                             <Image src={Google} alt="Google Logo" width={20} height={20} className="size-4"/>
-                            Continue with Google
+                            {t.google}
                         </Button>
                         <p className="text-center text-sm text-gray-500">
-                            Don&#39;t have an account ?
-                            <Link href="/auth/sign-up"> Sign up</Link>
+                            {t.noAccount}{" "}
+                            <Link href="/auth/sign-up" className="text-gray-800 hover:underline">{t.signUp}</Link>
                         </p>
                     </form>
                 </Form>

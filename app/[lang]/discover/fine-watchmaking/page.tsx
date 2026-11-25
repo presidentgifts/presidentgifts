@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import React from "react";
 import WatchVsText from "./components/watch-text";
@@ -9,7 +10,7 @@ import third from "@/public/images/fine-watchmaking3.webp";
 import { getDictionary } from "@/lib/get-dictionary";
 
 interface FineWatchmakingProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az" }>;
+  params: Promise<{ lang: LangType }>;
 }
 
 export default async function FineWatchmaking({ params }: FineWatchmakingProps) {

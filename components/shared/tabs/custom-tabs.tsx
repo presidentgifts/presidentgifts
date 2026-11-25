@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import React, { FC, ReactNode } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Link from "next/link";
@@ -26,7 +27,7 @@ interface Props {
     tj: string;
     az: string;
   };
-  lang: "uz" | "ru" | "en" | "tj" | "az";
+  lang: LangType;
 }
 
 const CustomTabs: FC<Props> = ({ tabs, className, identifier, lang }) => {

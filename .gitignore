@@ -40,3 +40,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local development database (npm run db:local)
+/.local-db*
+!.env.example
+
+# Images uploaded in development when R2 is not configured
+/public/dev-uploads

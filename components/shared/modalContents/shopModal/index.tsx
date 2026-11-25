@@ -1,4 +1,5 @@
 "use client";
+import {LangType} from "@/interface/lang/lang-type";
 
 import { shopModalItems } from "@/constants/shop-modal-item";
 import Link from "next/link";
@@ -6,7 +7,7 @@ import React from "react";
 import { Category } from "@/interface/category-type/category-interface";
 
 interface shopModalProps {
-  lang: "uz" | "ru" | "en";
+  lang: LangType;
   category: Category[];
 }
 

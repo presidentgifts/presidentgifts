@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import React, { FC } from "react";
 import CustomTabs from "@/components/shared/tabs/custom-tabs";
 import InstrumentAccordion from "../components/instrument-accordion";
@@ -11,11 +12,10 @@ interface WritingProps {
       description: string; // e.g. description paragraph
     };
   };
-  lang: "uz" | "ru" | "en" | "tj" | "az";
+  lang: LangType;
 }
 
-export const Writing: FC<WritingProps> = ({ dictionary, lang }) => {
-    console.log(dictionary)
+export const Writing: FC<WritingProps> = ({ lang }) => {
     const myTabs = [
         {
           value: "care-use",

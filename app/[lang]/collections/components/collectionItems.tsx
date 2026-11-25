@@ -47,7 +47,7 @@
 //             {collectionImage && (
 //               <div className="col-span-2 row-span-2">
 //                 <Image
-//                   src={`${process.env.NEXT_PUBLIC_ADMIN_URL}${collectionImage}`}
+//                   src={mediaSrc(collectionImage)}
 //                   alt="Collection Image"
 //                   width={1200}
 //                   height={600}
@@ -73,6 +73,7 @@ import { CollectionResponse } from "../type";
 import { ProductsCard } from "@/components/shared/products-cards/products-card";
 import { ProductsInterface } from "@/interface/products-interface/products-interface";
 import Image from "next/image";
+import {mediaSrc} from "@/lib/media-src";
 
 interface CollectionsProps {
   collection: CollectionResponse[];
@@ -138,7 +139,7 @@ export async function CollectionItems({ collection, id ,dictionary}: Collections
                     className="col-span-2 row-span-2"
                   >
                     <Image
-                      src={`${process.env.NEXT_PUBLIC_ADMIN_URL}${collectionImage}`}
+                      src={mediaSrc(collectionImage)}
                       alt={`collection-image-${index}`}
                       width={1200}
                       height={1200}

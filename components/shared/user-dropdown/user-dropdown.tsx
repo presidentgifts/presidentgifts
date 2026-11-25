@@ -5,12 +5,13 @@ import { useRouter } from "next/navigation";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { LogOut, User } from "lucide-react";
+import { useUiText } from "@/provider/ui-text-provider";
 
 export default function UserDropdown() {
   const router = useRouter();
   const { data: session } = useSession();
+  const t = useUiText().userMenu;
 
-  // Foydalanuvchi ismining bosh harfini olish
   const getInitial = () => {
     if (session?.user) {
       const name =
@@ -33,21 +34,21 @@ export default function UserDropdown() {
           className="z-[100] mt-6 w-full p-6 rounded-[4px] bg-white space-y-5"
         >
           <div className="uppercase text-xs font-semibold text-gray-700 tracking-wide">
-            Unlock your President benefits
+            {t.benefits}
           </div>
           <div className="flex gap-2">
             <Button
               variant={"default"}
               onClick={() => router.push("/auth/sign-up")}
             >
-              Create an account
+              {t.createAccount}
             </Button>
             <Button
               variant="secondary"
               className="flex-1"
               onClick={() => router.push("/auth/sign-in")}
             >
-              Log in
+              {t.login}
             </Button>
           </div>
         </PopoverContent>
@@ -89,15 +90,15 @@ export default function UserDropdown() {
             onClick={() => router.push("/account")}
           >
             <User className="w-4 h-4 mr-2" />
-            Profil
+            {t.profile}
           </Button>
           <Button
             variant="secondary"
             className="flex-1 w-[200px] border-red-500 text-red-600 hover:bg-red-50"
-            onClick={() => signOut()}
+            onClick={() => signOut({ callbackUrl: "/" })}
           >
             <LogOut className="w-4 h-4 mr-2" />
-            Chiqish
+            {t.logout}
           </Button>
         </div>
       </PopoverContent>

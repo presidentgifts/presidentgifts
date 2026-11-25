@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import {CategoryCard} from "@/components/shared/category-card/category-card";
 import {SectionTitle} from "@/components/ui/sectionTitle";
 import {CategoryService} from "@/service/home-service/category.service";
@@ -11,7 +12,7 @@ interface CategoryProps {
             title: string;
         };
     };
-    lang: "uz" | "ru" | "en" | 'tj' | 'az'
+    lang: LangType
 }
 
 export async function Category({dictionary, lang}: CategoryProps) {

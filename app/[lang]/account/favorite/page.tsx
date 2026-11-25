@@ -1,9 +1,10 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { getDictionary } from "@/lib/get-dictionary";
 import FavoritePage from "./favorite";
 
 interface FavoriteProps {
     params: Promise<{
-      lang: "uz" | "ru" | "en" | "tj" | "az";
+      lang: LangType;
     }>;
   }
   

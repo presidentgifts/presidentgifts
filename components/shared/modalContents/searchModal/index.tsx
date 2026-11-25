@@ -1,4 +1,5 @@
 "use client";
+import {LangType} from "@/interface/lang/lang-type";
 
 import {
   Carousel,
@@ -35,7 +36,7 @@ interface NewsProps {
     };
   };
   category: Category[]; // yangi qo‘shildi
-  lang?: "uz" | "ru" | "en" | "az" | "tj";
+  lang?: LangType;
 }
 
 export default function SearchModalData({ dictionary, category }: NewsProps) {
@@ -45,12 +46,12 @@ export default function SearchModalData({ dictionary, category }: NewsProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const fetchInitial = async () => {
-      const res = await getNewProducts();
-      setAllProducts(res);
-      setProducts(res);
-    };
-    fetchInitial();
+    getNewProducts()
+      .then((res: ProductsInterface[] | null) => {
+        setAllProducts(res ?? []);
+        setProducts(res ?? []);
+      })
+      .catch(() => undefined);
   }, []);
 
   useEffect(() => {
@@ -146,11 +147,9 @@ export default function SearchModalData({ dictionary, category }: NewsProps) {
                 key={item.id}
                 className="text-sm font-normal leading-[1.5rem] cursor-pointer my-2.5"
               >
-                <SheetClose className="cursor-pointer transition">
-                  <Link href={`/shops/${item.name}id${item.id}`}>
-                    <SheetClose className="cursor-pointer transition">
-                      {item.name}
-                    </SheetClose>
+                <SheetClose asChild>
+                  <Link className="cursor-pointer transition" href={`/shops/${item.name}id${item.id}`}>
+                    {item.name}
                   </Link>
                 </SheetClose>
               </div>

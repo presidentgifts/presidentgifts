@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import IconComponent from "@/components/icon/icon-view";
 import {Button} from "@/components/ui/button";
 import {FooterLogo} from "@/components/ui/logo";
@@ -10,7 +11,7 @@ import {CategoryInterface} from "@/interface/category-type/category-interface";
 import {CategoryService} from "@/service/home-service/category.service";
 
 interface FooterProps {
-    lang: "uz" | "ru" | "en";
+    lang: LangType;
 }
 
 export const Footer = async ({lang}: FooterProps) => {
@@ -160,7 +161,7 @@ export const Footer = async ({lang}: FooterProps) => {
                                         "text-gray-600 text-sm mb-4 font-medium leading-normal"
                                     }
                                 >
-                                    <Link href={`/shops/${item.id}`}>{item.name}</Link>
+                                    <Link href={`/shops/${item.name}id${item.id}`}>{item.name}</Link>
                                 </li>
                             ))}
                         </ul>

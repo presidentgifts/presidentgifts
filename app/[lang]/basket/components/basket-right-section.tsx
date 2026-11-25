@@ -6,6 +6,7 @@ import {cn} from "@/lib/utils";
 import {useBasketStore} from "@/lib/set-basket.storage";
 import {getCurrencyCode, getPriceFor} from "@/hooks/price-helpers";
 import {formatCurrency} from "@/hooks/formatPrice";
+import {useUiText} from "@/provider/ui-text-provider";
 
 export interface DictionaryType {
   dictionary: {
@@ -29,12 +30,7 @@ export interface DictionaryType {
 
 export function BasketRightSection({ dictionary }: DictionaryType) {
   const { items } = useBasketStore();
-
-  // const totalQuantity = items.reduce((acc, item) => acc + item.quantity, 0);
-  // const totalPrice = items.reduce(
-  //   (acc, item) => acc + item.quantity * item.price,
-  //   0
-  // );
+  const ui = useUiText();
 
     const code = getCurrencyCode();
 
@@ -54,7 +50,7 @@ export function BasketRightSection({ dictionary }: DictionaryType) {
             <div className="space-y-2">
                 <div className="flex justify-between">
                     <span>{dictionary.basket.product_quantity}</span>
-                    <span className="font-semibold">{totalQuantity} шт.</span>
+                    <span className="font-semibold">{totalQuantity} {ui.common.pcs}</span>
                 </div>
 
                 <div className="flex justify-between">
@@ -70,7 +66,11 @@ export function BasketRightSection({ dictionary }: DictionaryType) {
                 </div>
             </div>
 
-            <Link className={cn(buttonVariants({variant: "default"}), "w-full")} href={"/order"}>
+            <Link
+                className={cn(buttonVariants({variant: "default"}), "w-full", items.length === 0 && "pointer-events-none opacity-50")}
+                aria-disabled={items.length === 0}
+                href={"/order"}
+            >
               {dictionary.basket.checkout}
             </Link>
 

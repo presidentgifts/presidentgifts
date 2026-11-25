@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import React from "react";
 import leather from "@/public/images/care-leather.webp";
@@ -10,7 +11,7 @@ import { getDictionary } from "@/lib/get-dictionary";
 import { Writing } from "../components/writing";
 
 interface DiscoverServiceProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az"; service: string }>;
+  params: Promise<{ lang: LangType; service: string }>;
 }
 
 export default async function DiscoverService({
@@ -21,7 +22,6 @@ export default async function DiscoverService({
   const t = dictionary.careServices;
 
   const serviceName = param.service === "writing%20instrument" ? "writing" :param.service ; // "writing", "leather", "watches"
-  console.log(serviceName);
   let imageSrc = writing;
   if (serviceName === "leather") {
     imageSrc = leather;

@@ -7,6 +7,7 @@ import images1 from "@/public/images/clock-show-case.jpg";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
 import {ShowcaseDataFrom, ShowcaseItem} from "@/interface/showcase-type/showcase-type";
+import {mediaSrc} from "@/lib/media-src";
 
 export default function ShowcaseAnimation({DataLayer, showcase}: {
     DataLayer: ShowcaseDataFrom
@@ -15,10 +16,13 @@ export default function ShowcaseAnimation({DataLayer, showcase}: {
     const [current, setCurrent] = useState(0);
 
 
-    const images = showcase.find((item) => item.key == "showcase.image")?.mediaFiles.map((media) => media.filePath)
+    const images = useMemo(
+        () => showcase?.find((item) => item.key == "showcase.image")?.mediaFiles.map((media) => media.filePath).filter(Boolean),
+        [showcase]
+    );
 
     useEffect(() => {
-        if (images) {
+        if (images && images.length > 1) {
             const interval = setInterval(() => {
                 setCurrent((prev) => (prev + 1) % images.length);
             }, 3000);
@@ -27,7 +31,7 @@ export default function ShowcaseAnimation({DataLayer, showcase}: {
     }, [images]);
 
     const backgroundImageUrl = useMemo(() => {
-        if (images) {
+        if (images?.length) {
             return imageLoader({
                 src: images[current],
                 width: 1400,
@@ -51,7 +55,7 @@ export default function ShowcaseAnimation({DataLayer, showcase}: {
                     }}
                     className="absolute inset-0 bg-no-repeat bg-cover bg-center"
                     style={{
-                        backgroundImage: `url('${process.env.NEXT_PUBLIC_ADMIN_URL}${backgroundImageUrl}')` || images1.src,
+                        backgroundImage: `url('${backgroundImageUrl ? mediaSrc(backgroundImageUrl) : images1.src}')`,
                     }}
                 />
             </AnimatePresence>

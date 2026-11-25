@@ -1,10 +1,11 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import { getDictionary } from "@/lib/get-dictionary";
 import ServicesImage from "@/public/images/service-return.webp";
 import Image from "next/image";
 
 interface ReturnProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az" }>;
+  params: Promise<{ lang: LangType }>;
 }
 
 export default async function ReturnPage({ params }: ReturnProps) {

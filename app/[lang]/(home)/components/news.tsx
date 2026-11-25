@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import {Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel";
 import {SectionTitle} from "@/components/ui/sectionTitle";
 import {NewsCard} from "@/components/shared/news-card/news-card";
@@ -12,7 +13,7 @@ interface NewsProps {
         };
         homepage: { more: string };
     };
-    lang?: "uz" | "ru" | "en" | "az" | 'tj'
+    lang?: LangType
 }
 
 

@@ -1,4 +1,5 @@
 "use client";
+import {LangType} from "@/interface/lang/lang-type";
 import {FC} from "react";
 import Image, {StaticImageData} from "next/image";
 import Link from "next/link";
@@ -26,7 +27,7 @@ interface StoryCardProps {
             story:string
         }
     },
-    lang: "uz" | "ru" | "en" | "tj" | 'az'
+    lang: LangType
 }
 
 

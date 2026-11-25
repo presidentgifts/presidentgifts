@@ -1,4 +1,5 @@
 'use client'
+import {LangType} from "@/interface/lang/lang-type";
 
 import {useRef} from 'react'
 import {Button} from "@/components/ui/button"
@@ -9,7 +10,7 @@ import {CategoryCard} from "@/components/shared/category-card/category-card";
 
 interface CategoryCarouselProps {
     categories: CategoryInterface
-    lang: "uz" | "ru" | "en" | 'tj' | "az"
+    lang: LangType
     dictionary: {
         category: {
           title: string;

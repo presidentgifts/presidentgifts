@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import {Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious,} from "@/components/ui/carousel";
 import {SectionTitle} from "@/components/ui/sectionTitle";
 import {FC} from "react";
@@ -13,7 +14,7 @@ interface StoryProps {
             story:string
         }
     };
-    lang: "uz" | "ru" | "en" |"az"|"tj"
+    lang: LangType
 }
 
 

@@ -12,7 +12,6 @@
     "title": "Assortiment",
     "newArrival": "tezliklə"
   },
-
   "productVideos": {
     "title": "Məhsul videoları"
   },
@@ -20,6 +19,24 @@
     "title": "Sorğu göndərin",
     "supportform": "Menecerimiz sizə zəng edəcək və məhsullarımızı ətraflı izah edəcək",
     "form": {
+      "email": {
+        "label": "E-poçt",
+        "placeholder": "E-poçtunuzu daxil edin"
+      },
+      "location": {
+        "label": "Şəhər",
+        "placeholder": "Şəhərinizi daxil edin"
+      },
+      "date": {
+        "label": "Ziyarət tarixi"
+      },
+      "time": {
+        "label": "Ziyarət vaxtı"
+      },
+      "comment": {
+        "label": "Şərh",
+        "placeholder": "Mesajınızı bura yazın"
+      },
       "name": {
         "label": "Ad",
         "placeholder": "Adınızı daxil edin"
@@ -42,7 +59,6 @@
       "modalSuccessDescription": "President Business Gifts komandası qısa zamanda sizinlə əlaqə saxlayacaq. Sizə ən yüksək səviyyədə xidmət göstərməkdən məmnun olarıq!"
     }
   },
-
   "location": {
     "title": "Filiallar",
     "text": "Ünvanlar"
@@ -77,7 +93,6 @@
     "title": "Kolleksiyalar",
     "newArrival": "Kolleksiyaya bax"
   },
-
   "story": {
     "story": "HEKAYƏ"
   },
@@ -143,7 +158,6 @@
     "maintext": "President Business Gifts-də biz sadəcə hədiyyə deyil — dəyər yaradırıq. Hər bir məhsul fikirdən mükəmməl icraya qədər komandamızın nəzarəti altında keçilir.\nDizaynı özümüz hazırlayır, premium materiallar seçir və istehsalın hər mərhələsinə nəzarət edirik.",
     "title": "Minerva irsinə hörmət",
     "rightSideTitle": "Hər detalda ustalıq",
-
     "craftsmanship": {
       "productType": "Ustalıq",
       "description": "Estetik və texniki mükəmməllik",
@@ -310,5 +324,196 @@
     "no_products": "Məhsul tapılmadı",
     "product_types": "Məhsul növləri",
     "close": "Bağla"
+  },
+  "ui": {
+    "common": {
+      "pcs": "əd.",
+      "save": "Yadda saxla",
+      "yes": "Bəli",
+      "no": "Xeyr",
+      "loading": "Yüklənir...",
+      "notAvailable": "Bu funksiya tezliklə əlçatan olacaq."
+    },
+    "product": {
+      "addToCart": "Səbətə əlavə et",
+      "goToCart": "Səbət →",
+      "deliveryNote": "Sifarişinizi mümkün qədər tez və rahat çatdırmağa çalışırıq.",
+      "details": "Ətraflı",
+      "shareUnsupported": "Bu cihazda paylaşma dəstəklənmir.",
+      "linkCopied": "Keçid kopyalandı"
+    },
+    "order": {
+      "title": "Sifarişin rəsmiləşdirilməsi",
+      "createdAt": "Yaradılıb",
+      "deliveryTitle": "Alma üsulu və çatdırılma ünvanı",
+      "addressLabel": "Sifarişi hara çatdıraq?",
+      "addressPlaceholder": "Ünvan",
+      "addressHint": "Ünvanı daxil edin və xəritədə qeyd edin",
+      "mapLabel": "Xəritədə yer",
+      "mapButton": "Xəritədə qeyd et",
+      "mapDialogTitle": "Xəritədə nöqtə seçin",
+      "mapDialogDescription": "Ünvanı seçmək üçün xəritədə lazımi yerə klikləyin.",
+      "saveLocation": "Yeri yadda saxla",
+      "orderedProducts": "Sifariş edilən məhsullar",
+      "sku": "Artikul",
+      "recipientTitle": "Alıcı məlumatları",
+      "firstName": "Ad",
+      "firstNamePlaceholder": "Adınızı daxil edin",
+      "lastName": "Soyad",
+      "lastNamePlaceholder": "Soyadınızı daxil edin",
+      "phone": "Telefon nömrəsi",
+      "phonePlaceholder": "+994 50 123 45 67",
+      "secondPhone": "Əlavə nömrə (könüllü)",
+      "summaryTitle": "Sifariş təfərrüatları",
+      "quantity": "Məhsul sayı",
+      "productsPrice": "Məhsulların qiyməti",
+      "total": "Cəmi",
+      "submit": "Sifariş et",
+      "submitting": "Göndərilir...",
+      "error": "Sifarişi rəsmiləşdirmək mümkün olmadı. Yenidən cəhd edin.",
+      "success": {
+        "title": "Sifariş uğurla rəsmiləşdirildi!",
+        "text": "Sifarişiniz üçün təşəkkür edirik! Təfərrüatları təsdiqləmək üçün tezliklə sizinlə əlaqə saxlayacağıq.",
+        "home": "Ana səhifəyə",
+        "account": "Şəxsi kabinetə"
+      },
+      "validation": {
+        "addressRequired": "Ünvan mütləqdir",
+        "chooseOnMap": "Zəhmət olmasa, yeri xəritədə seçin",
+        "nameMin": "Ən azı 2 simvol",
+        "nameMax": "Çox uzundur",
+        "phoneInvalid": "Düzgün nömrə daxil edin, məsələn +994501234567",
+        "secondPhoneInvalid": "Düzgün nömrə daxil edin və ya boş saxlayın"
+      }
+    },
+    "account": {
+      "title": "Hesabım",
+      "details": "Hesab məlumatları",
+      "fullName": "Tam ad",
+      "fullNamePlaceholder": "Adınızı daxil edin",
+      "email": "E-poçt",
+      "emailPlaceholder": "E-poçtunuzu daxil edin",
+      "nav": {
+        "details": "Hesab məlumatları",
+        "favorites": "Seçilmişlər",
+        "orders": "Sifarişlər",
+        "changePassword": "Şifrəni dəyiş",
+        "changeEmail": "E-poçtu dəyiş",
+        "logout": "Çıxış"
+      },
+      "logoutConfirm": "Çıxmaq istədiyinizə əminsiniz?",
+      "orders": {
+        "title": "Sifarişlərim",
+        "empty": "Hələ sifariş verməmisiniz.",
+        "orderId": "Sifariş ID",
+        "status": "Sifariş statusu",
+        "createdAt": "Sifariş tarixi",
+        "address": "Ünvan",
+        "quantity": "Məhsul sayı",
+        "total": "Cəmi",
+        "showProducts": "Məhsulları göstər",
+        "hide": "Gizlət",
+        "viewItem": "Məhsula bax"
+      },
+      "favorites": {
+        "title": "Seçilmişlər",
+        "count": "Seçilmişlər siyahısında: {count} məhsul",
+        "emptyText": "Məhsulu seçilmişlərə əlavə etmək üçün yanındakı ürək işarəsinə klikləyin. Seçilmişlərinizə istənilən vaxt baxa, ala və paylaşa bilərsiniz.",
+        "continueShopping": "Alış-verişə davam et"
+      },
+      "changePassword": {
+        "title": "Şifrəni dəyiş",
+        "current": "Cari şifrə",
+        "currentPlaceholder": "Cari şifrəni daxil edin",
+        "new": "Yeni şifrə",
+        "newPlaceholder": "Yeni şifrəni daxil edin",
+        "confirm": "Yeni şifrəni təsdiqləyin",
+        "confirmPlaceholder": "Yeni şifrəni təkrarlayın"
+      },
+      "changeEmail": {
+        "title": "E-poçtu dəyiş",
+        "current": "Cari e-poçt",
+        "new": "Yeni e-poçt",
+        "newPlaceholder": "Yeni e-poçtu daxil edin",
+        "confirm": "Yeni e-poçtu təsdiqləyin",
+        "confirmPlaceholder": "Yeni e-poçtu təkrarlayın"
+      }
+    },
+    "auth": {
+      "login": {
+        "title": "Giriş",
+        "subtitle": "Xoş gəlmisiniz! Hesabınıza daxil olun",
+        "email": "E-poçt",
+        "emailPlaceholder": "E-poçtunuzu daxil edin",
+        "password": "Şifrə",
+        "passwordPlaceholder": "Şifrənizi daxil edin",
+        "forgot": "Şifrəni unutmusunuz?",
+        "submit": "Daxil ol",
+        "google": "Google ilə davam et",
+        "noAccount": "Hesabınız yoxdur?",
+        "signUp": "Qeydiyyat",
+        "invalid": "E-poçt və ya şifrə yanlışdır",
+        "network": "Şəbəkə xətası, yenidən cəhd edin"
+      },
+      "register": {
+        "title": "Hesab yarat",
+        "subtitle": "Qeydiyyat üçün formanı doldurun",
+        "fullName": "Tam ad",
+        "fullNamePlaceholder": "Tam adınız",
+        "submit": "Qeydiyyatdan keç",
+        "creating": "Yaradılır...",
+        "haveAccount": "Hesabınız var?",
+        "login": "Daxil ol",
+        "error": "Qeydiyyat alınmadı. Bu e-poçt artıq istifadə oluna bilər.",
+        "confirmPassword": "Şifrəni təsdiqləyin"
+      },
+      "forgot": {
+        "title": "Şifrəni unutmusunuz?",
+        "description": "President hesabınızın e-poçtunu daxil edin — yeni şifrə yaratmaq üçün keçid göndərəcəyik. Keçid 24 saat etibarlıdır.",
+        "submit": "Göndər"
+      }
+    },
+    "userMenu": {
+      "benefits": "President üstünlüklərini kəşf edin",
+      "createAccount": "Hesab yarat",
+      "login": "Daxil ol",
+      "profile": "Profil",
+      "logout": "Çıxış"
+    },
+    "b2b": {
+      "title": "Loqonuzu məhsullarımızda sınayın",
+      "description": "Şirkətinizin loqosunu yükləyin və onun premium hədiyyələrdə — klatç, çanta, vizitkalıq və digər məmulatlarda necə görünəcəyini dərhal görün.",
+      "authErrorTitle": "Avtorizasiya tələb olunur",
+      "authErrorDesc": "Fayl yükləməzdən əvvəl daxil olun.",
+      "uploadHint": "Loqonuzu yükləyin (PNG, 3MB-dan kiçik).",
+      "chooseFile": "Fayl seç",
+      "noFile": "Fayl seçilməyib",
+      "uploading": "Yüklənir...",
+      "tooLarge": "Faylın ölçüsü 3MB-dan kiçik olmalıdır.",
+      "uploadError": "Şəkli emal etmək mümkün olmadı. Yenidən cəhd edin.",
+      "clutch": {
+        "title": "Klatç",
+        "desc": "Loqonuzun klatçda necə görünəcəyini görmək istəyirsiniz? Loqo şəklini yükləyin və elə indi sınayın!"
+      },
+      "bag": {
+        "title": "Çanta",
+        "desc": "Brendinizin loqosu olan çantanı təsəvvür edin. Nəticəni görmək istəyirsiniz? Elə indi sınayın!"
+      },
+      "watch": {
+        "title": "Saat",
+        "desc": "Brendinizin loqosunu hətta qol saatının daxili hissəsinə də vururuq — bu incə və dəqiq işdir. Mütləq sınayın!"
+      }
+    }
+  },
+  "breadcrumb": {
+    "president": "President business gifts",
+    "discover": "Daha çox kəşf et",
+    "shop": "Mağaza",
+    "account": "Hesab",
+    "news": "Xəbərlər",
+    "about": "Haqqımızda",
+    "category": "Kateqoriya",
+    "collections": "Kolleksiyalar",
+    "corporategifts": "Korporativ hədiyyələr"
   }
 }

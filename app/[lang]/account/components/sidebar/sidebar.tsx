@@ -14,17 +14,19 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import {signOut} from "next-auth/react"
+import {useUiText} from "@/provider/ui-text-provider"
 
 const links = [
-    {href: '/account', label: 'Детали аккаунта'},
-    {href: '/account/favorite', label: 'Мой любимый'},
-    {href: '/account/order', label: 'Заказ'},
-    {href: '/account/change-password', label: 'Изменить пароль'},
-    {href: '/account/change-email', label: 'Изменить почты'},
-]
+    {href: '/account', key: 'details'},
+    {href: '/account/favorite', key: 'favorites'},
+    {href: '/account/order', key: 'orders'},
+    {href: '/account/change-password', key: 'changePassword'},
+    {href: '/account/change-email', key: 'changeEmail'},
+] as const
 
 export default function AccountSidebar({lang}: { lang: string | undefined }) {
     const pathname = usePathname()
+    const t = useUiText()
     const [showLogoutModal, setShowLogoutModal] = useState(false)
     const normalizedPathname = pathname?.replace(`/${lang}`, '') || ''
 
@@ -38,7 +40,7 @@ export default function AccountSidebar({lang}: { lang: string | undefined }) {
                 {links.map((link) => (
                     <Link
                         key={link.href}
-                        href={pathname?.startsWith('/ru') ? `/ru${link.href}` : link.href}
+                        href={lang ? `/${lang}${link.href}` : link.href}
                         className={clsx(
                             'px-4 py-2 rounded-md text-sm font-medium min-w-max',
                             normalizedPathname === link.href
@@ -46,7 +48,7 @@ export default function AccountSidebar({lang}: { lang: string | undefined }) {
                                 : 'text-gray-600 hover:bg-gray-100'
                         )}
                     >
-                        {link.label}
+                        {t.account.nav[link.key]}
                     </Link>
                 ))}
                 <button
@@ -56,22 +58,22 @@ export default function AccountSidebar({lang}: { lang: string | undefined }) {
                         'text-gray-600 hover:bg-gray-100 cursor-pointer'
                     )}
                 >
-                    Выйти
+                    {t.account.nav.logout}
                 </button>
             </div>
 
             <AlertDialog open={showLogoutModal} onOpenChange={setShowLogoutModal}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle> Вы уверены, что хотите выйти?</AlertDialogTitle>
+                        <AlertDialogTitle>{t.account.logoutConfirm}</AlertDialogTitle>
                     </AlertDialogHeader>
                     <AlertDialogFooter className={"w-full flex items-center justify-center mt-5"}>
-                        <AlertDialogCancel className={"w-[50%]"}>No</AlertDialogCancel>
+                        <AlertDialogCancel className={"w-[50%]"}>{t.common.no}</AlertDialogCancel>
                         <AlertDialogAction
                             className={"w-[50%]"}
                             onClick={handleLogout}
                         >
-                            Yes
+                            {t.common.yes}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>

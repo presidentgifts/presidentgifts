@@ -4,7 +4,9 @@ export const shopModalItems = [
         name: {
             uz: "Yangi mahsulotlar",
             ru: "Новые продукты",
-            en: "News Products"
+            en: "News Products",
+            tj: "Маҳсулоти нав",
+            az: "Yeni məhsullar"
         },
         link: "shops/news",
         custom: true
@@ -14,7 +16,9 @@ export const shopModalItems = [
         name: {
             uz: "Mahsulotlar kolleksiyasi",
             ru: "Коллекции продуктов",
-            en: "Collection products"
+            en: "Collection products",
+            tj: "Коллексияҳои маҳсулот",
+            az: "Məhsul kolleksiyaları"
         },
         link: "collections",
         custom: true
@@ -24,7 +28,9 @@ export const shopModalItems = [
         name: {
             uz: "Soatlar",
             ru: "Часы",
-            en: "Watches"
+            en: "Watches",
+            tj: "Соатҳо",
+            az: "Saatlar"
         },
         link: "shops",
         custom: false
@@ -34,7 +40,9 @@ export const shopModalItems = [
         name: {
             uz: "Aksessuarlar",
             ru: "Аксессуары",
-            en: "Accessories"
+            en: "Accessories",
+            tj: "Аксессуарҳо",
+            az: "Aksesuarlar"
         },
         link: "shops",
         custom: false
@@ -44,7 +52,9 @@ export const shopModalItems = [
         name: {
             uz: "Suvenirlar",
             ru: "Сувениры",
-            en: "Souvenirs"
+            en: "Souvenirs",
+            tj: "Сувенирҳо",
+            az: "Suvenirlər"
         },
         link: "shops",
         custom: false
@@ -54,29 +64,11 @@ export const shopModalItems = [
         name: {
             uz: "Сharm buyumlar",
             ru: "Кожанные изделия",
-            en: "Leather goods"
+            en: "Leather goods",
+            tj: "Маҳсулоти чармӣ",
+            az: "Dəri məmulatları"
         },
         link: "shops",
         custom: false
     },
-    // {
-    //     id: 7,
-    //     name: {
-    //         uz: "Kolleksiyalar",
-    //         ru: "Коллекции",
-    //         en: "Collections"
-    //     },
-    //     link: "collections",
-    //     custom: true
-    // },
-    // {
-    //     id: 8,
-    //     name: {
-    //         uz: "Yangiliklar",
-    //         ru: "Новости",
-    //         en: "News"
-    //     },
-    //     link: "new/UZB%20Limited%20Edition%202025id1",
-    //     custom: true
-    // },
 ];

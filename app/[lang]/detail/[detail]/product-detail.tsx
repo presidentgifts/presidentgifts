@@ -10,9 +10,15 @@ import Link from "next/link";
 import {useWishlistStore} from "@/lib/set-wishlist.storage";
 import FormattedText from "@/components/shared/formatted-text/formatted-text";
 import {formatCurrency} from "@/hooks/formatPrice";
+import {useUiText} from "@/provider/ui-text-provider";
+import {toast} from "sonner";
+import {toBasketItem} from "@/lib/basket-item";
+import {getCurrencyCode, getPriceFor} from "@/hooks/price-helpers";
 
 export default function ProductDetailPage({product}: { product: ProductsInterface }) {
 
+    const ui = useUiText();
+    const t = ui.product;
     const {toggleWishlist, isInWishlist} = useWishlistStore();
     const isLiked = isInWishlist(Number(product?.id));
 
@@ -23,35 +29,23 @@ export default function ProductDetailPage({product}: { product: ProductsInterfac
     const quantity = basketItem?.quantity || 0;
 
 
-    const price = product?.locale_price ?? product?.prices?.[0]?.price ?? null;
+    const price = product?.locale_price ?? getPriceFor(product?.prices, getCurrencyCode()) ?? null;
 
 
     const handleShare = () => {
-        const shareData = {
-            title: "Check out this product!",
-            text: "Extreme 3.0 pouch is awesome!",
-            url: window.location.href,
-        };
+        const shareData = {title: product?.name, url: window.location.href};
 
         if (navigator.share) {
-            navigator.share(shareData).catch(console.error);
+            navigator.share(shareData).catch(() => undefined);
+        } else if (navigator.clipboard) {
+            navigator.clipboard.writeText(shareData.url).then(() => toast.success(t.linkCopied));
         } else {
-            alert("Sharing is not supported on this device.");
+            toast.error(t.shareUnsupported);
         }
     };
     const handleAddToCart = () => {
-        if (product) {
-            addToBasket({
-                id: product.id,
-                name: product.name,
-                basePriceToUSD: product.basePriceToUSD,
-                price: product.prices,
-                sku: product.sku,
-                imgUrl: product.media[0].filePath,
-            });
-        }
+        if (product) addToBasket(toBasketItem(product));
     };
-    console.log(product)
     return (
         <div className="container md:!mt-26 !mt-42 relative">
             <BreadcrumbDynamic url={product?.name}/>
@@ -78,7 +72,7 @@ export default function ProductDetailPage({product}: { product: ProductsInterfac
                     </p>
                     {quantity === 0 ? (
                         <Button className="w-full mt-4" onClick={handleAddToCart}>
-                            Добавить в корзину
+                            {t.addToCart}
                         </Button>
                     ) : (
                         <div className="w-full mt-4 flex items-center gap-[2%] flex-wrap">
@@ -90,7 +84,7 @@ export default function ProductDetailPage({product}: { product: ProductsInterfac
                                 -
                             </Button>
                             <div className="px-4 py-2 border w-[32%] flex items-center justify-center rounded text-sm">
-                                <span className="font-bold">{quantity}</span> шт
+                                <span className="font-bold">{quantity}</span>&nbsp;{ui.common.pcs}
                             </div>
                             <Button
                                 className="bg-primary w-[32%]"
@@ -99,17 +93,17 @@ export default function ProductDetailPage({product}: { product: ProductsInterfac
                                 +
                             </Button>
                             <Link href="/basket" className="!mt-3 w-[100%]">
-                                <Button className="w-full">Корзина →</Button>
+                                <Button className="w-full">{t.goToCart}</Button>
                             </Link>
                         </div>
                     )}
 
                     <p className="text-gray-700 text-sm mt-7">
-                        Мы стремимся доставить Ваш заказ максимально быстро и удобно.
+                        {t.deliveryNote}
                     </p>
 
                     <div className="mt-6">
-                        <h2 className="text-lg font-semibold mt-12">Подробности</h2>
+                        <h2 className="text-lg font-semibold mt-12">{t.details}</h2>
                         <div className="text-gray-700 text-sm mt-2">
                             {product?.description && (
                                 <FormattedText input={product?.description}/>

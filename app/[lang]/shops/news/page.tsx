@@ -1,8 +1,7 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import SortAndViewToggleWrapper from "@/components/shared/sort-View-toggle/sort-viewtoggle";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { ProductsCard } from "@/components/shared/products-cards/products-card";
 import { NewProductService } from "@/service/products-service/new-products.service";
 import { ProductsInterface } from "@/interface/products-interface/products-interface";
 import ShopBanner from "@/public/images/shop-news.webp";
@@ -10,17 +9,17 @@ import { AlertTriangle } from "lucide-react";
 import { getDictionary } from "@/lib/get-dictionary";
 
 interface NewsPageProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az"; category: string }>;
+  params: Promise<{ lang: LangType; category: string }>;
 }
 
 export default async function NewsPage({ params }: NewsPageProps) {
   const ShopsNewPageParam: {
-    lang: "uz" | "ru" | "en" | "tj" | "az";
+    lang: LangType;
     category: string;
   } = await params;
   const newProducts: ProductsInterface[] =
     (await NewProductService()) as ProductsInterface[];
-  const filteredProducts = newProducts.filter(
+  const filteredProducts = (newProducts ?? []).filter(
     (item) => item?.meta?._new_product === true
   );
   const dictionary= await getDictionary(ShopsNewPageParam.lang) 
@@ -56,26 +55,13 @@ export default async function NewsPage({ params }: NewsPageProps) {
             </p>
           </div>
         ) : (
-          <>
-            <SortAndViewToggleWrapper
-              dictionary={dictionary}
-              itemLength={filteredProducts.length}
-            >
-              {filteredProducts.map((product) => (
-                <ProductsCard
-                  key={product.id}
-                  productData={product}
-                  dictionary={dictionary}
-                />
-              ))}
-            </SortAndViewToggleWrapper>
-
-            <div className="flex justify-center mt-11">
-              <Button className="border-primary" variant="outline">
-                {dictionary.newproducts.showMore}
-              </Button>
-            </div>
-          </>
+          <SortAndViewToggleWrapper
+            products={filteredProducts}
+            dictionary={{
+              ...dictionary,
+              category: {...dictionary.category, show_more: dictionary.newproducts.showMore},
+            }}
+          />
         )}
       </div>
     </div>

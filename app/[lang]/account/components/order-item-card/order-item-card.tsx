@@ -4,34 +4,28 @@ import {getProductDetail} from "@/service/products-service/product-item.service"
 import {ProductsInterface} from "@/interface/products-interface/products-interface";
 import Link from "next/link";
 import {formatCurrency} from "@/hooks/formatPrice";
+import {useUiText} from "@/provider/ui-text-provider";
+import {mediaSrc} from "@/lib/media-src";
 
 
 export const OrderCardItem = ({elementID}: { elementID: number }) => {
     const [productDetail, setProductDetail] = useState<ProductsInterface>()
+    const t = useUiText().account.orders;
 
     useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const data = await getProductDetail(elementID);
-                setProductDetail(data);
-            } catch (error) {
-                console.error("Error fetching product:", error);
-            } finally {
-            }
-        };
-
-        fetchProduct().then().catch().finally();
+        getProductDetail(elementID)
+            .then(setProductDetail)
+            .catch((error) => console.error("Error fetching product:", error));
     }, [elementID]);
 
 
-    console.log(productDetail, "this is product detail")
 
     return (
         <div className={"flex items-center justify-between w-full"}>
             <div className={'flex gap-8'}>
                 {productDetail?.media?.[0]?.filePath ? (
                     <Image
-                        src={`${process.env.NEXT_PUBLIC_ADMIN_URL}${productDetail.media[0].filePath}`}
+                        src={mediaSrc(productDetail.media[0].filePath)}
                         alt={'Order image'}
                         width={80}
                         height={80}
@@ -53,7 +47,7 @@ export const OrderCardItem = ({elementID}: { elementID: number }) => {
                 </div>
             </div>
             {productDetail?.id && (
-                <Link href={`/detail/${productDetail.id}`}>Посмотреть элемент</Link>
+                <Link href={`/detail/${productDetail.id}`}>{t.viewItem}</Link>
             )}
         </div>
     )

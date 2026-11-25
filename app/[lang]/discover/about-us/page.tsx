@@ -1,3 +1,4 @@
+import {LangType} from "@/interface/lang/lang-type";
 import { BreadcrumbDynamic } from "@/components/shared/breadcrumb-dynamic/breadcrumb-dynamic";
 import Image from "next/image";
 import React from "react";
@@ -11,11 +12,11 @@ import afterimage from "@/public/images/Bags (1).webp";
 import { getDictionary } from "@/lib/get-dictionary";
 
 interface AboutProps {
-  params: Promise<{ lang: "uz" | "ru" | "en" | "tj" | "az" }>;
+  params: Promise<{ lang: LangType }>;
 }
 
 export default async function AboutUs({ params }: AboutProps) {
-  const param: { lang: "uz" | "ru" | "en" | "tj" | "az" } = await params;
+  const param: { lang: LangType } = await params;
   const dictionary = await getDictionary(param.lang);
 
   const t = dictionary.about;

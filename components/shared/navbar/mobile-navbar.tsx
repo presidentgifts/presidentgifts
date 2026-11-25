@@ -3,44 +3,34 @@ import React, {useEffect, useRef, useState} from "react";
 import CustomTabs from "../tabs/custom-tabs";
 import {FooterLogo} from "@/components/ui/logo";
 import IconComponent from "@/components/icon/icon-view";
-
 import DiscoverModalContent from "../modalContents/discoverModal";
 import ChangeLangModal from "../modalContents/changeLangModal";
 import {CountryType, LanguageType} from "@/interface/language&country-type/language-type";
 import ShopModalContent from "../modalContents/shopModal";
-import {getCategoryModal} from "@/service/home-service/category-mobile.service";
 import {Category} from "@/interface/category-type/category-interface";
 import {CurrencyType} from "@/interface/currency-type/currency-type";
+import {navbarLinks} from "@/constants/navbar";
+import {Locale} from "@/lib/i18n-config";
 
-const MobileNavbar = ({lang, languages, county, currency}:
-                      {
-                          lang: "uz" | "ru" | "en",
-                          languages: LanguageType[],
-                          county: CountryType[]
-                          currency: CurrencyType[] | undefined
-                      }) => {
+interface MobileNavbarProps {
+    lang: Locale;
+    languages: LanguageType[];
+    county: CountryType[];
+    currency: CurrencyType[] | undefined;
+    category: Category[];
+}
+
+const [shopLink, discoverLink] = navbarLinks;
+
+const MobileNavbar = ({lang, languages, county, currency, category}: MobileNavbarProps) => {
     const [open, setOpen] = useState<boolean>(false);
-    // const [searchInputOpen, setSearchInputOpen] = useState<boolean>(false);
-    const [category, setCategory] = useState<Category[]>([])
-
-    useEffect(() => {
-
-        const fetchCategory = async () => {
-            const data: Category[] = await getCategoryModal() as Category[]
-            setCategory(data);
-        };
-        fetchCategory().then().catch().finally();
-    }, []);
     const mobileMenuRef = useRef<HTMLDivElement>(null);
-    const handleOpen = () => setOpen(!open);
+
     useEffect(() => {
         if (!open) return;
 
         const handleClickOutside = (event: MouseEvent) => {
-            if (
-                mobileMenuRef.current &&
-                !mobileMenuRef.current.contains(event.target as Node)
-            ) {
+            if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target as Node)) {
                 setOpen(false);
             }
         };
@@ -53,25 +43,8 @@ const MobileNavbar = ({lang, languages, county, currency}:
         <div className="bg-white p-5 md:hidden w-screen" ref={mobileMenuRef}>
             <div className="flex justify-between items-center">
                 <FooterLogo/>
-                <IconComponent onClick={handleOpen} name={open ? "close" : "burger"}/>
+                <IconComponent onClick={() => setOpen(!open)} name={open ? "close" : "burger"}/>
             </div>
-
-            {/*<div>*/}
-            {/*  <div className="relative w-full mt-4">*/}
-            {/*    <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-5 w-5" />*/}
-            {/*    <Input*/}
-            {/*      type="search"*/}
-            {/*      placeholder="Search"*/}
-            {/*      className="pl-10 w-full outline-0 rounded-none border-0 border-b border-gray-400"*/}
-            {/*      onFocus={() => setSearchInputOpen(true)}*/}
-            {/*      onBlur={() => setTimeout(() => setSearchInputOpen(false), 150)}*/}
-            {/*    />*/}
-            {/*  </div>*/}
-
-            {/*  <div suppressHydrationWarning>*/}
-            {/*    {searchInputOpen && <SearchModalData />}*/}
-            {/*  </div>*/}
-            {/*</div>*/}
 
             {open && (
                 <div className="mt-4 space-y-6">
@@ -80,27 +53,16 @@ const MobileNavbar = ({lang, languages, county, currency}:
                         tabs={[
                             {
                                 value: "shops",
-                                label: {
-                                    uz: "Yangiliklar",
-                                    ru: "Новости",
-                                    en: "News",
-                                    tj: "Хабарҳо",
-                                    az: "Xəbərlər",
-                                },
-                                content: <ShopModalContent lang={"ru"} category={category}/>,
+                                label: shopLink.name,
+                                content: <ShopModalContent lang={lang} category={category}/>,
                             },
                             {
                                 value: "discover",
-                                label: {
-                                    uz: "Yangiliklar",
-                                    ru: "Новости",
-                                    en: "News",
-                                    tj: "Хабарҳо",
-                                    az: "Xəbərlər",
-                                },
-                                content: <DiscoverModalContent lang={'ru'}/>,
+                                label: discoverLink.name,
+                                content: <DiscoverModalContent lang={lang}/>,
                             },
-                        ]} lang={lang}
+                        ]}
+                        lang={lang}
                     />
                     <ChangeLangModal lang={lang} languages={languages} county={county} currency={currency}/>
                 </div>
