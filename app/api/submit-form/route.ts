@@ -1,3 +1,12 @@
+// amoCRM is not connected yet: the site's forms go through /api/telegram and are saved as inquiries.
+// The original amoCRM handler is kept below; uncomment it (and set the AMOCRM_* variables) to turn it on.
+import {NextResponse} from "next/server";
+
+export async function POST() {
+    return NextResponse.json({success: false, message: "AmoCRM is not connected"}, {status: 503});
+}
+
+/*
 import { NextResponse } from 'next/server';
 import AmoCRMService from '@/lib/amocrm';
 
@@ -92,3 +101,4 @@ export async function POST(request: Request) {
         );
     }
 }
+*/
