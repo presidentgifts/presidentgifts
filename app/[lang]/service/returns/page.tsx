@@ -25,7 +25,7 @@ export default async function ReturnPage({ params }: ReturnProps) {
         alt={"ServicesImage"}
       />
       <div className="container ">
-        <div className="w-[590px] flex flex-col justify-start items-start gap-5 mt-12">
+        <div className="w-full max-w-[590px] flex flex-col justify-start items-start gap-5 mt-12">
           <div
             data-aos="fade-right"
             className="text-primary text-lg font-medium leading-7"

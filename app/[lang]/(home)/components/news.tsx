@@ -36,7 +36,7 @@ export const News = async ({ dictionary }: NewsProps)  => {
                 <CarouselContent className="m-0 p-0 relative">
                     {NewData?.map((newsItem) => (
                         <CarouselItem
-                            className={"m-0 p-0 min-w-96"}
+                            className={"m-0 p-0 min-w-[80vw] sm:min-w-96"}
                             key={newsItem.id}
                             style={{flex: "0 0 35%"}}
                         >

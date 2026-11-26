@@ -34,7 +34,7 @@ export const StorySection: FC<StoryProps> = async ({dictionary,lang}) => {
                 <CarouselContent className="m-0 p-0 relative">
                     {storiesData?.map((storyline) => (
                         <CarouselItem
-                            className={"m-0 p-0 min-w-96"}
+                            className={"m-0 p-0 min-w-[80vw] sm:min-w-96"}
                             key={storyline.id}
                             style={{flex: "0 0 35%"}}
                         >

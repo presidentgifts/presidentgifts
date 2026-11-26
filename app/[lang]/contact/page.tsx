@@ -4,6 +4,8 @@ import Image from "next/image";
 import ServicesImage from "@/public/images/Контакты.webp";
 import { getDictionary } from "@/lib/get-dictionary";
 import FaqsForm from "../shops/components/faqs-form/faqs-form";
+import { BranchList } from "./branch-list";
+import { normalizeLocale } from "@/lib/i18n-config";
 
 interface ContactPageProps {
   params: Promise<{ lang: LangType; category: string }>;
@@ -34,7 +36,7 @@ export default async function FaqsPage({ params }: ContactPageProps) {
       <div className="container ">
         <div
           data-aos="fade-right"
-          className="w-[590px] flex flex-col justify-start items-start gap-7"
+          className="w-full max-w-[590px] flex flex-col justify-start items-start gap-7"
         >
           <h2 className="self-stretch justify-start text-primary text-lg font-medium  leading-7">
             {dictionary.contacts.contactTitle}
@@ -71,11 +73,7 @@ export default async function FaqsPage({ params }: ContactPageProps) {
             <h3 className="self-stretch justify-start text-primary text-lg font-medium  leading-7">
               {dictionary.contacts.branches}
             </h3>
-            <ul className="list-disc pl-5 text-primary text-sm leading-tight">
-              {dictionary.contacts.branchList.map((branch) => (
-                <li key={branch}>{branch}</li>
-              ))}
-            </ul>
+            <BranchList lang={normalizeLocale(ContactPageParam.lang)} />
           </div>
         </div>
       </div>

@@ -29,7 +29,7 @@ interface ShippingProps {
                 data-aos-offset="0"
             />
             <div className="container ">
-                <div className="w-[590px] flex flex-col justify-start items-start gap-5">
+                <div className="w-full max-w-[590px] flex flex-col justify-start items-start gap-5">
                     <div data-aos="fade-right" className="text-primary text-lg font-medium leading-7">
                          {dictionary.service.shipping.title}
                     </div>

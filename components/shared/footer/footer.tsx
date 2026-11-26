@@ -9,14 +9,30 @@ import {FooterService} from "@/service/home-service/footer.service";
 import {FooterType} from "@/interface/footer-type/footer-type";
 import {CategoryInterface} from "@/interface/category-type/category-interface";
 import {CategoryService} from "@/service/home-service/category.service";
+import {getDictionary} from "@/lib/get-dictionary";
+import {normalizeLocale} from "@/lib/i18n-config";
+import {withFallbackTexts} from "@/lib/page-text";
 
 interface FooterProps {
     lang: LangType;
 }
 
 export const Footer = async ({lang}: FooterProps) => {
-    const FooterData: FooterType = (await FooterService()) as FooterType;
+    const pageTexts = (await FooterService()) as Partial<FooterType>;
     const CategoryData: CategoryInterface[] = await CategoryService() as CategoryInterface[]
+    const {footer} = await getDictionary(normalizeLocale(lang));
+
+    // Texts entered in the admin panel (page FOOTER) win; the built-in translations fill whatever is empty.
+    const FooterData = withFallbackTexts<FooterType>(pageTexts, {
+        "footer.description": footer.footerDescription,
+        "footer.signup": footer.signUp,
+        "footer.support": footer.support,
+        "footer.company": footer.company,
+        "footer.new.products": footer.newProducts,
+        "footer.payments": footer.acceptedPayments,
+        "footer.social": footer.socialMedia,
+        "footer.copyright": footer.copyright,
+    });
 
     return (
         <footer className={"container"}>

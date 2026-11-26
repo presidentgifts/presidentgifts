@@ -36,7 +36,7 @@ export default async function DiscoverLocation({ params }: LocationProps) {
 
         <div>
           <Image
-            className="w-[500px] h-[500px] rounded object-cover"
+            className="w-full max-w-[500px] aspect-square rounded object-cover"
             src={boutiqueImg}
             alt="бутик"
             data-aos="fade-zoom-in"

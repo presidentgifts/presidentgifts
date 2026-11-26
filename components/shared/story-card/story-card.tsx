@@ -40,7 +40,7 @@ export const StoryCard: FC<StoryCardProps> = ({storyItem,dictionary,lang}) => {
                 src={storyItem.image}
                 width={1000}
                 height={1000}
-                className={"w-96 md:w-full h-[500px] object-cover"}
+                className={"w-full h-[400px] md:h-[500px] object-cover"}
                 alt={`${storyItem.name[lang]}`}
             />
             <h4

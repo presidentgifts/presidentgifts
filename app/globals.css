@@ -128,8 +128,15 @@ html[lang="ru"] .section-title {
 }
 
 
-/* Base Body Font */
+/* Side-entering animations (AOS fade-left/right start ~100px off to the side) must never widen the page
+   on phones: a phone browser keeps the wider layout once it has grown. The rule has to be on html (the
+   viewport); "clip" on body keeps body from becoming a scroll container, so position: sticky still works. */
+html {
+    overflow-x: hidden;
+}
+
 body {
+    overflow-x: clip;
 }
 
 

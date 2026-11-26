@@ -24,7 +24,7 @@ export default async function AppointmentPage({
 
 
       <div className="container ">
-        <div data-aos="fade-right" className="w-[590px] flex flex-col justify-start items-start gap-7">
+        <div data-aos="fade-right" className="w-full max-w-[590px] flex flex-col justify-start items-start gap-7">
           <h2 className="self-stretch justify-start text-primary text-lg font-medium mt-10 leading-7">
             {dictionary.service.appointment.title}
           </h2>

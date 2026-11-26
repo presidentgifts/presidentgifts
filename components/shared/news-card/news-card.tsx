@@ -28,7 +28,7 @@ export const NewsCard: FC<{
           src={mediaSrc(newsItem?.image_page?.filePath)}
           width={1000}
           height={1000}
-          className={"w-96 md:w-full h-[500px] object-cover"}
+          className={"w-full h-[400px] md:h-[500px] object-cover"}
           alt={`${newsItem.title}`}
         />
       )}

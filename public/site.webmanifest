@@ -1,0 +1,11 @@
+{
+  "name": "President Business Gifts",
+  "short_name": "President",
+  "icons": [
+    {"src": "/web-app-manifest-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+  ],
+  "theme_color": "#000418",
+  "background_color": "#ffffff",
+  "display": "browser"
+}

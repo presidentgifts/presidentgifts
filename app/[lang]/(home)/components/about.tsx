@@ -5,11 +5,26 @@ import {AboutService} from "@/service/home-service/about.service";
 import {AboutType} from "@/interface/about-type/about-type";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
+import {getLocaleContext} from "@/lib/locale-context";
+import {getDictionary} from "@/lib/get-dictionary";
+import {normalizeLocale} from "@/lib/i18n-config";
+import {withFallbackTexts} from "@/lib/page-text";
 
 
 export async function About() {
 
-    const AboutData: AboutType = await AboutService() as AboutType
+    const {lang} = await getLocaleContext();
+    const dictionary = await getDictionary(normalizeLocale(lang));
+    const AboutData = withFallbackTexts<Omit<AboutType, "about.image">>(
+        (await AboutService()) as Partial<AboutType>,
+        {
+            "about.title": dictionary.about.title,
+            "about.subtitle": dictionary.about.subtitle,
+            "about.description": dictionary.about.description,
+            "about.imageAlt": dictionary.about.imageAlt,
+            "about.btn": dictionary.homepage.more,
+        },
+    );
 
     return (
         <div className="bg-gradient-to-l from-neutral-100 to-white/0 py-10">
