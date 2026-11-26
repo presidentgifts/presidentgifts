@@ -185,14 +185,7 @@ export const Footer = async ({lang}: FooterProps) => {
                 />
 
                 <div data-aos="fade-left" data-aos-delay="1200" className={"flex flex-col items-start"}>
-                    <h2
-                        className={
-                            "text-gray-500 text-sm font-medium leading-normal mb-5 md:mb-[40px]"
-                        }
-                    >
-                        {FooterData["footer.payments"]}
-                    </h2>
-                    <div className={"flex flex-wrap md:flex-nowrap items-center gap-4"}>
+                    <div className={"flex flex-wrap md:flex-nowrap items-center gap-4 mt-2 md:mt-[60px]"}>
                         <div>
                             <IconComponent name="mastercard"/>
                         </div>
