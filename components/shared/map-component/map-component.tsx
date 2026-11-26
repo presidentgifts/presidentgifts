@@ -71,13 +71,12 @@ export default function MapComponent({
       scrollWheelZoom={false}
       className="w-full h-full z-0"
     >
-      {/* <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
-            /> */}
+      {/* CARTO basemaps now require an API key, so the free OpenStreetMap tiles are used,
+          desaturated to keep the light grey look. */}
       <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-        attribution='&copy; <a href="https://carto.com/">CARTO</a>'
+        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        className="grayscale-[85%] brightness-105"
       />
 
       {branches.map((branch, index) => (
