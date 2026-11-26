@@ -5,9 +5,8 @@ import { useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import Logo from "@/public/svg/PresidentLogo.svg";
-import { Branch, ownBranches } from "@/constants/branches";
+import { Branch } from "@/constants/branches";
 import { useBranches } from "@/hooks/use-branches";
-import { getClientCountryCode } from "@/lib/locale-context-client";
 import { Locale } from "@/lib/i18n-config";
 
 
@@ -23,11 +22,10 @@ function FitMapToBranches({ branches }: { branches: Branch[] }) {
   const map = useMap();
 
   useEffect(() => {
-    // Open the map on the visitor's country.
-    const visible = ownBranches(getClientCountryCode(), branches);
-    if (visible.length === 0) return;
-    const bounds = L.latLngBounds(visible.map((branch) => [branch.lat, branch.lng]));
-    map.fitBounds(bounds, { padding: [50, 50], maxZoom: 13 });
+    // Open the map zoomed out far enough to show every branch in every country.
+    if (branches.length === 0) return;
+    const bounds = L.latLngBounds(branches.map((branch) => [branch.lat, branch.lng]));
+    map.fitBounds(bounds, { padding: [60, 60], maxZoom: 13 });
   }, [map, branches]);
 
   return null;
@@ -66,8 +64,9 @@ export default function MapComponent({
   const branches = useBranches();
   return (
     <MapContainer
-      center={[41.2995, 69.2401]}
-      zoom={zoom ?? 13}
+      // Starting view over all branch countries (Baku to Dushanbe) until the branches load.
+      center={[40.5, 60]}
+      zoom={zoom ?? 5}
       scrollWheelZoom={false}
       className="w-full h-full z-0"
     >
