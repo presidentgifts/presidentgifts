@@ -269,6 +269,7 @@ export const uz: AdminDictionary = {
         imagesHint: "Birinchi rasm asosiy hisoblanadi. Tartibni strelkalar bilan o'zgartiring.",
         upload: "Yuklash",
         uploading: "Yuklanmoqda...",
+        compressing: "Siqilmoqda… {percent}% (sahifani yopmang)",
         uploadFailed: "Yuklab bo'lmadi",
         replace: "Almashtirish",
         makeMain: "Asosiy qilish",

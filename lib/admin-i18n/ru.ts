@@ -269,6 +269,7 @@ export const ru: AdminDictionary = {
         imagesHint: "Первое изображение — главное. Порядок меняется стрелками.",
         upload: "Загрузить",
         uploading: "Загрузка...",
+        compressing: "Сжатие… {percent}% (не закрывайте вкладку)",
         uploadFailed: "Не удалось загрузить",
         replace: "Заменить",
         makeMain: "Сделать главным",

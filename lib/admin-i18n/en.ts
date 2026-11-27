@@ -267,6 +267,7 @@ export const en = {
         imagesHint: "The first image is the main one. Drag or use the arrows to reorder.",
         upload: "Upload",
         uploading: "Uploading...",
+        compressing: "Compressing… {percent}% (keep this tab open)",
         uploadFailed: "Upload failed",
         replace: "Replace",
         makeMain: "Make main",

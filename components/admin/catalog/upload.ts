@@ -3,6 +3,7 @@
 import {registerMediaAction, requestUploadAction} from "@/app/admin/catalog-actions";
 import type {ActionResult} from "@/server/admin-action";
 import type {MediaView} from "@/server/services/catalog/common";
+import {compressForUpload, type CompressProgress} from "./compress";
 
 export const ACCEPT_IMAGES = "image/jpeg,image/png,image/webp,image/avif,image/svg+xml";
 
@@ -24,10 +25,15 @@ function readImageSize(file: File): Promise<{ width: number | null; height: numb
 }
 
 /**
- * Uploads a file straight to storage (signed R2 URL, or the local dev endpoint)
- * and registers it in the media library.
+ * Compresses the file in the browser (see compress.ts), uploads it straight to storage
+ * (signed R2 URL, or the local dev endpoint) and registers it in the media library.
  */
-export async function uploadMedia(countryCode: string, file: File): Promise<ActionResult<MediaView>> {
+export async function uploadMedia(
+    countryCode: string,
+    original: File,
+    onCompressProgress?: CompressProgress,
+): Promise<ActionResult<MediaView>> {
+    const file = await compressForUpload(original, onCompressProgress);
     const prepared = await requestUploadAction(countryCode, {contentType: file.type, size: file.size});
     if (!prepared.ok) return prepared;
 
@@ -45,6 +51,6 @@ export async function uploadMedia(countryCode: string, file: File): Promise<Acti
         size: file.size,
         width,
         height,
-        originalName: file.name.slice(0, 255),
+        originalName: original.name.slice(0, 255),
     });
 }

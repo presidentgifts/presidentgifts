@@ -143,14 +143,16 @@ function VideoDialog({texts, country, item, nextOrder, onClose}: {
     const [link, setLink] = useState(item?.link ?? "");
     const [isActive, setIsActive] = useState(item?.isActive ?? true);
     const [uploading, setUploading] = useState(false);
+    const [compressing, setCompressing] = useState<number | null>(null);
     const fileInput = useRef<HTMLInputElement>(null);
     const {run, pending, errorField} = useAdminAction(texts);
     const linkInvalid = link.trim() !== "" && !/^https?:\/\/\S+$/i.test(link.trim());
 
     async function pickFile(file: File) {
         setUploading(true);
-        const result = await uploadMedia(country.code, file).catch(() => ({ok: false as const, error: "server" as const}));
+        const result = await uploadMedia(country.code, file, setCompressing).catch(() => ({ok: false as const, error: "server" as const}));
         setUploading(false);
+        setCompressing(null);
         if (result.ok) setVideo(result.data);
         else toast.error(`${texts.catalog.uploadFailed}: ${file.name}`, {description: texts.errors[result.error] ?? texts.errors.server});
     }
@@ -194,9 +196,14 @@ function VideoDialog({texts, country, item, nextOrder, onClose}: {
                                     <Film className="size-6 text-neutral-500"/>
                                 )}
                             </div>
+                            <div className="space-y-2">
                             <Button id="video-file" type="button" variant="outline" size="sm" disabled={uploading} onClick={() => fileInput.current?.click()}>
                                 {uploading ? texts.catalog.uploading : video ? texts.catalog.replace : texts.catalog.upload}
                             </Button>
+                            {compressing !== null && compressing < 100 && (
+                                <p className="text-xs text-neutral-500">{format(texts.catalog.compressing, {percent: compressing})}</p>
+                            )}
+                            </div>
                             <input
                                 ref={fileInput}
                                 type="file"

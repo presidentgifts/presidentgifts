@@ -16,6 +16,8 @@
 
 # next.js
 /.next/
+# extra build folders (e.g. NEXT_DIST_DIR=.next-smoke for a second dev server)
+/.next-*/
 /out/
 
 # production
