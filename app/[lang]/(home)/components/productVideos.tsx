@@ -1,116 +1,67 @@
-// import ProductVideoCard from "@/components/shared/product-video-card/video-card";
-// import {Carousel, CarouselContent, CarouselItem,} from "@/components/ui/carousel";
-// import {SectionTitle} from "@/components/ui/sectionTitle";
-// import {productItem} from "@/constants/product-videos-item";
-
-// interface ProductVideosProps {
-//     dictionary: {
-//         productVideos: {
-//             title: string;
-//         };
-//     };
-// }
-
-// export const ProductVideos = ({dictionary}: ProductVideosProps) => {
-//     return (
-//         <div className="relative">
-//             <SectionTitle className="container" text={dictionary.productVideos.title} />
-
-//             {/* Carousel */}
-//             <div className="relative mt-5 md:mt-12 overflow-x-hidden">
-//                 <div className="relative w-full max-w-[1400px] mx-auto pl-4 sm:pl-6 md:pl-8 lg:pl-[80px]">
-//                     <Carousel
-//                         opts={{
-//                             align: "start",
-//                             slidesToScroll: 1,
-//                             containScroll: "trimSnaps",
-//                         }}
-//                         className="m-0 p-0"
-//                     >
-//                         <CarouselContent className="m-0 p-0 relative gap-4">
-//                             {productItem.map((item) => (
-//                                 <CarouselItem
-//                                     key={item.id}
-//                                     className="
-//                     m-0 p-0 
-//                     basis-[90%] sm:basis-[45%] 
-//                     md:basis-[30%] 
-//                     lg:basis-[23%] 
-//                     xl:basis-[20%]
-//                     min-w-[250px]
-//                     h-[450px]
-//                   "
-//                                 >
-//                                     <ProductVideoCard productItem={item}/>
-//                                 </CarouselItem>
-//                             ))}
-//                         </CarouselContent>
-//                     </Carousel>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
 import ProductVideoCard from "@/components/shared/product-video-card/video-card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
-import { SectionTitle } from "@/components/ui/sectionTitle";
-import { productItem } from "@/constants/product-videos-item";
+import {Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious} from "@/components/ui/carousel";
+import {SectionTitle} from "@/components/ui/sectionTitle";
+import {productItem} from "@/constants/product-videos-item";
+import {ProductVideoProps} from "@/interface/product-videos-type/product-video";
+import {getLocaleContext} from "@/lib/locale-context";
+import {isLocalDataSource} from "@/server/storefront/source";
 
 interface ProductVideosProps {
-  dictionary: {
-    productVideos: {
-      title: string;
+    dictionary: {
+        productVideos: {
+            title: string;
+        };
     };
-  };
 }
 
-export const ProductVideos = ({ dictionary }: ProductVideosProps) => {
-  return (
-    <div className="relative w-full bg-white py-8">
-      <SectionTitle className="container" text={dictionary.productVideos.title} />
+/** Videos managed in the admin panel (Product videos); the built-in ones until any are added. */
+async function loadVideos(): Promise<ProductVideoProps[]> {
+    if (!isLocalDataSource()) return productItem;
+    try {
+        const {countryCode} = await getLocaleContext();
+        const {listSiteProductVideos} = await import("@/server/services/content/product-videos");
+        const videos = await listSiteProductVideos(countryCode);
+        if (videos.length === 0) return productItem;
+        return videos.map((v) => ({id: v.id, video: v.video!.url, instaLink: v.link}));
+    } catch (error) {
+        console.error("[product videos] falling back to built-in videos:", error instanceof Error ? error.message : error);
+        return productItem;
+    }
+}
 
-      {/* Carousel container */}
-      <div className="relative mt-5 md:mt-12">
-        <div className="relative w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8">
-          <Carousel
-            opts={{
-              align: "start",
-              slidesToScroll: 1,
-              containScroll: "trimSnaps",
-            }}
-            className="relative"
-          >
-            {/* Arrows */}
-            <CarouselPrevious className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md hover:bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center" />
-            <CarouselNext className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-md hover:bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center" />
+const arrowClass =
+    "static translate-x-0 translate-y-0 size-11 rounded-full border border-neutral-300 bg-white text-primary shadow-none " +
+    "hover:bg-primary hover:text-white disabled:opacity-30 transition-colors";
 
-            {/* Carousel Items */}
-            <CarouselContent className="gap-1">
-              {productItem.map((item) => (
-                <CarouselItem
-                  key={item.id}
-                  className="
-                    basis-[90%] sm:basis-[45%] 
-                    md:basis-[30%] 
-                    lg:basis-[23%] 
-                    xl:basis-[20%]
-                    min-w-[250px]
-                    h-[450px]
-                  "
-                >
-                  <ProductVideoCard productItem={item} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
+export const ProductVideos = async ({dictionary}: ProductVideosProps) => {
+    const videos = await loadVideos();
+    if (videos.length === 0) return null;
+
+    return (
+        <div className="relative w-full bg-white py-8">
+            <Carousel opts={{align: "start", slidesToScroll: 1, containScroll: "trimSnaps"}}>
+                <div className="container flex items-end justify-between gap-6">
+                    <SectionTitle text={dictionary.productVideos.title}/>
+                    {/* Arrows sit next to the title, never on top of a video, so a click on them can't open a video link. */}
+                    <div className="hidden shrink-0 gap-3 md:flex">
+                        <CarouselPrevious className={arrowClass}/>
+                        <CarouselNext className={arrowClass}/>
+                    </div>
+                </div>
+
+                <div className="mx-auto mt-5 w-full max-w-[1400px] px-4 sm:px-6 md:mt-12 md:px-8">
+                    <CarouselContent>
+                        {videos.map((item) => (
+                            <CarouselItem
+                                key={item.id}
+                                className="h-[420px] basis-[78%] sm:h-[450px] sm:basis-[45%] md:basis-[31%] lg:basis-[23%] xl:basis-[20%]"
+                            >
+                                <ProductVideoCard productItem={item}/>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                </div>
+            </Carousel>
         </div>
-      </div>
-    </div>
-  );
+    );
 };

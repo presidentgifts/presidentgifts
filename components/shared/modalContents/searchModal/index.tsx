@@ -104,6 +104,7 @@ export default function SearchModalData({ dictionary, category }: NewsProps) {
         <div className="flex flex-col md:flex-row gap-28">
           <div className="w-full md:w-2/3 order-1 md:order-none">
             <Carousel
+              autoplay={false}
               opts={{
                 align: "start",
                 slidesToScroll: 1,

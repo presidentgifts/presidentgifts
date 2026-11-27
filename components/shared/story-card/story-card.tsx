@@ -53,9 +53,9 @@ export const StoryCard: FC<StoryCardProps> = ({storyItem,dictionary,lang}) => {
             <Link
                 href={storyItem.link}
                 passHref={true}
-                className={`self-stretch justify-start`}
+                className={"inline-block w-[70%] max-w-52"}
             >
-                <Button variant={"secondary"} className={" w-full mt-5 md:max-w-52"}>
+                <Button variant={"secondary"} className={"w-full mt-5"}>
                     {dictionary.homepage.more}
                 </Button>
             </Link>

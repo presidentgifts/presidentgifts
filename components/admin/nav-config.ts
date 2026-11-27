@@ -28,6 +28,7 @@ export const NAV_ITEMS: NavItem[] = [
     {key: "news", href: "/admin/news", group: "content", permission: PERMISSIONS.contentEdit, available: true},
     {key: "uiTexts", href: "/admin/ui-texts", group: "content", permission: PERMISSIONS.contentEdit, available: true},
     {key: "branches", href: "/admin/branches", group: "content", permission: PERMISSIONS.contentEdit, available: true},
+    {key: "productVideos", href: "/admin/product-videos", group: "content", permission: PERMISSIONS.contentEdit, available: true},
 
     {key: "orders", href: "/admin/orders", group: "sales", permission: PERMISSIONS.ordersView, available: true},
     {key: "inquiries", href: "/admin/inquiries", group: "sales", permission: PERMISSIONS.ordersView, available: true},

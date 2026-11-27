@@ -518,6 +518,26 @@ export const branchTranslations = pgTable(
     (t) => [primaryKey({columns: [t.branchId, t.languageCode]})],
 );
 
+/** Short product videos on the home page ("Product videos"), each optionally linking to a post (e.g. an Instagram reel). */
+export const productVideos = pgTable(
+    "product_videos",
+    {
+        id: serial("id").primaryKey(),
+        countryCode: char("country_code", {length: 2})
+            .notNull()
+            .references(() => countries.code, {onDelete: "cascade"}),
+        videoId: uuid("video_id")
+            .notNull()
+            .references(() => media.id, {onDelete: "restrict"}),
+        link: varchar("link", {length: 500}),
+        isActive: boolean("is_active").notNull().default(true),
+        sortOrder: integer("sort_order").notNull().default(0),
+        updatedById: uuid("updated_by_id").references(() => adminUsers.id, {onDelete: "set null"}),
+        ...timestamps,
+    },
+    (t) => [index("product_videos_country_idx").on(t.countryCode, t.sortOrder)],
+);
+
 /* ------------------------------------------------------------------ */
 /* Sales: customers, orders, inquiries                                 */
 /* ------------------------------------------------------------------ */

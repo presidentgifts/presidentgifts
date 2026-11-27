@@ -20,26 +20,26 @@ export const productItem =[
   {
     id: 3,
     instaLink: "https://www.instagram.com/reel/DJ4OcPqoBm-/?utm_source=ig_web_copy_link&igsh=MXV6eGVsMDlmZDhvaQ==",
-    video: "videos/vid4.mp4"
+    video: "/videos/vid4.mp4"
   },
   {
     id: 4,
     instaLink: "https://www.instagram.com/reel/DKMCQN_oBrZ/?utm_source=ig_web_copy_link&igsh=ODAzbnlvNnZmN3My",
-    video: "videos/vid5.mp4"
+    video: "/videos/vid5.mp4"
 
   },
   {
     id: 5,
     instaLink: "https://www.instagram.com/reel/DJ4OcPqoBm-/?igsh=MXV6eGVsMDlmZDhvaQ==",
 
-    video: "videos/vid2.mp4"
+    video: "/videos/vid2.mp4"
 
   },
   {
     id: 6,
     instaLink: "https://www.instagram.com/reel/DJjgCRCIg78/?igsh=MTZsbmJ0dDgwNXUwZA==",
 
-    video: "videos/vid1.mp4"
+    video: "/videos/vid1.mp4"
 
   },
 ];

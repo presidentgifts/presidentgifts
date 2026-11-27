@@ -4,6 +4,7 @@ import * as React from "react";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -17,6 +18,11 @@ type CarouselPlugin = UseCarouselParameters[1];
 type CarouselProps = {
   opts?: CarouselOptions;
   plugins?: CarouselPlugin;
+  /**
+   * Moves to the next slide on its own every `autoplay` ms (default 4500), pausing while
+   * the pointer is over it. `false` turns it off. Ignored when `plugins` already include autoplay.
+   */
+  autoplay?: number | false;
   orientation?: "horizontal" | "vertical";
   setApi?: (api: CarouselApi) => void;
 };
@@ -42,21 +48,40 @@ function useCarousel() {
   return context;
 }
 
+/** Slower than Embla's default (25), so slides glide instead of snapping. */
+const SMOOTH_DURATION = 40;
+const DEFAULT_AUTOPLAY_DELAY = 4500;
+
 function Carousel({
   orientation = "horizontal",
   opts,
   setApi,
   plugins,
+  autoplay = DEFAULT_AUTOPLAY_DELAY,
   className,
   children,
   ...props
 }: React.ComponentProps<"div"> & CarouselProps) {
+  // Created once per carousel: a new plugin list on every render would restart Embla.
+  const allPlugins = React.useMemo(() => {
+    const list = [...(plugins ?? [])];
+    const hasAutoplay = list.some((plugin) => plugin.name === "autoplay");
+    const reducedMotion =
+      typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (autoplay !== false && !hasAutoplay && !reducedMotion) {
+      list.push(Autoplay({delay: autoplay, stopOnInteraction: false, stopOnMouseEnter: true}));
+    }
+    return list;
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- plugins are fixed for the carousel's lifetime
+  }, []);
+
   const [carouselRef, api] = useEmblaCarousel(
     {
+      duration: SMOOTH_DURATION,
       ...opts,
       axis: orientation === "horizontal" ? "x" : "y",
     },
-    plugins
+    allPlugins
   );
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
   const [canScrollNext, setCanScrollNext] = React.useState(false);

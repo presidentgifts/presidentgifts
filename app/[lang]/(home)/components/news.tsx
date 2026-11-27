@@ -36,7 +36,7 @@ export const News = async ({ dictionary }: NewsProps)  => {
                 <CarouselContent className="m-0 p-0 relative">
                     {NewData?.map((newsItem) => (
                         <CarouselItem
-                            className={"m-0 p-0 min-w-[80vw] sm:min-w-96"}
+                            className={"m-0 p-0 pl-3 md:pl-0 min-w-[80vw] sm:min-w-96"}
                             key={newsItem.id}
                             style={{flex: "0 0 35%"}}
                         >
@@ -44,8 +44,8 @@ export const News = async ({ dictionary }: NewsProps)  => {
                         </CarouselItem>
                     ))}
                 </CarouselContent>
-                <CarouselPrevious className="absolute left-[100px] top-1/2 -translate-y-1/2 -translate-x-full z-40"/>
-                <CarouselNext className="absolute right-[100px] top-1/2 -translate-y-1/2 translate-x-full z-40"/>
+                <CarouselPrevious className="hidden md:flex absolute left-[100px] top-1/2 -translate-y-1/2 -translate-x-full z-40"/>
+                <CarouselNext className="hidden md:flex absolute right-[100px] top-1/2 -translate-y-1/2 translate-x-full z-40"/>
             </Carousel>
         </div>
     );

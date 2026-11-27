@@ -44,7 +44,7 @@ export const NewsCard: FC<{
         passHref={true}
         className={` absolute -bottom-0  w-full`}
       >
-        <Button variant={"secondary"} className={" w-[90%] mt-5 md:max-w-52"}>
+        <Button variant={"secondary"} className={"w-[70%] max-w-52 mt-5"}>
           {dictionary?.homepage.more}
         </Button>
       </Link>
