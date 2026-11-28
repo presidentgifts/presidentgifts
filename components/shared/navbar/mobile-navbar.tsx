@@ -67,7 +67,7 @@ const MobileNavbar = ({lang, languages, county, currency, category}: MobileNavba
                 {/* Only this part scrolls, however many sections are expanded. */}
                 <div className="flex-1 space-y-6 overflow-y-auto overscroll-contain p-5 pb-10">
                     <CustomTabs
-                        identifier="min-w-[140px]"
+                        identifier="min-w-[124px]"
                         tabs={[
                             {
                                 value: "shops",
